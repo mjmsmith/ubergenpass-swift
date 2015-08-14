@@ -1,0 +1,9 @@
+# ubergenpass
+
+UberGenPass is a [SuperGenPass](http://supergenpass.com)-compatible iOS password generator with a focus on efficient and secure workflow.  Available in the [App Store](https://itunes.apple.com/app/ubergenpass/id588224057?mt=8).
+
+## License
+
+[MIT License](http://opensource.org/licenses/mit-license.php).
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

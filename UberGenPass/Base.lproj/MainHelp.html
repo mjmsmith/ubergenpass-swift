@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset=utf-8>
+    <title>Main Help</title>
+    <link rel="stylesheet" type="text/css" href="../help.css" />
+  </head>
+  <body>
+    <h3>Site</h3>
+    <p>Type or paste the site that you want to generate a password for into the <b>Site</b> field. You can enter either a URL ("http://www.example.com/x?y=z") or a bare domain name ("www.example.com"). If you've enabled the <b>Save Recent Sites</b> setting, recent sites that match the typed text are displayed in a popup list. Tap on an item in the list to select it.</p>
+    <p>Since a URL is typically copied and pasted from Safari, UberGenPass applies the default behavior of removing subdomains. The following URLs all generate the password for "example.com":</p>
+    <ul>
+      <li>http://example.com</li>
+      <li>http://www.example.com/index.html</li>
+      <li>http://xxx.yyy.example.com/zzz</li>
+    </ul>
+    <p>On the other hand, since a bare domain name is typically typed directly, UberGenPass assumes that you want a password for the full domain as typed. Using the domains in the URLs above, a (different) password would be generated for "example.com", "www.example.com", and "xxx.yyy.example.com" respectively.</p>
+
+    <h3>Password Length</h3>
+    <p>Tap <b>+</b> or <b>-</b> to set the desired number of characters in the generated password. This setting is persisted between sessions.</p>
+
+    <h3>Password Type</h3>
+    <p>Tap <b>MD5</b> or <b>SHA</b> to select the type of password generated.  This setting is also persisted bwetwen sessions.</p>
+    
+    <h3>Notes</h3>
+    <p>As soon as the <b>Site</b> field contains a URL or domain, UberGenPass displays the domain name and its generated password behind "•••" bullet characters. To display the plain password text, tap on the bullet characters.</p>
+    <p>The generated password is automatically updated whenever you change the site text, password length, or password type; you don't have to tap the Done key on the keyboard to make it happen. To hide the keyboard, tap the Done key or tap anywhere on the background.</p>
+    <p>When a password is generated, two buttons are available below it.</p>
+
+    <h3>Copy to Clipboard</h3>
+    <p>Tap <b>Copy to Clipboard</b> to copy the password text to the clipboard. A checkbox appears next to this button when the current password is equal to the current clipboard contents.</p>
+
+    <h3>Launch Safari</h3>
+    <p>Tap <b>Launch Safari</b> to launch Safari at the URL or domain in the <b>Site</b> field. If the corresponding page is already open in Safari, it normally returns you to that open page rather than loading the URL in a new page.</p>
+  </body>
+</html>

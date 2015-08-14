@@ -1,0 +1,14 @@
+body {
+  margin: 2%;
+  padding: 0;
+  font: 11pt Verdana;
+  background-color: transparent;
+}
+
+li {
+  font-size: 80%;
+}
+
+img.status {
+  vertical-align: text-bottom;
+}

@@ -1,0 +1,18 @@
+PODS:
+  - Crashlytics (3.1.0)
+  - Fabric (1.2.8):
+    - Fabric/Base (= 1.2.8)
+  - Fabric/Base (1.2.8)
+  - Reveal-iOS-SDK (1.5.1)
+
+DEPENDENCIES:
+  - Crashlytics
+  - Fabric
+  - Reveal-iOS-SDK
+
+SPEC CHECKSUMS:
+  Crashlytics: 93e2f86363d53c002c6366a9d87e41f2eaee87c3
+  Fabric: a9eabe53915e9f1db55a84dd2838737928675878
+  Reveal-iOS-SDK: c9c55cad2729c85f6ced415f1b21857c9a2d8ef9
+
+COCOAPODS: 0.36.3
