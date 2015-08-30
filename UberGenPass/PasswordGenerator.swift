@@ -81,11 +81,11 @@ class PasswordGenerator {
       let parts = host.componentsSeparatedByString(".")
 
       if parts.count >= 2 {
-        domain = ".".join(parts[parts.count-2..<parts.count])
+        domain = parts[parts.count-2..<parts.count].joinWithSeparator(".")
 
         if self.tlds.containsObject(domain!) {
           if parts.count >= 3 {
-            domain = ".".join(parts[parts.count-3..<parts.count])
+            domain = parts[parts.count-3..<parts.count].joinWithSeparator(".")
           }
         }
       }
