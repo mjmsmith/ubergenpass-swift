@@ -28,9 +28,6 @@
                                     <navigationItem title="UberGenPass" id="ykd-BG-oUU"/>
                                 </items>
                             </navigationBar>
-                            <imageView userInteractionEnabled="NO" contentMode="top" image="Padlock" translatesAutoresizingMaskIntoConstraints="NO" id="ibB-vL-86l" userLabel="Image View - Background">
-                                <rect key="frame" x="180" y="212" width="240" height="240"/>
-                            </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="URL or domain" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="FBz-9R-IZS">
                                 <rect key="frame" x="16" y="80" width="568" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -206,6 +203,9 @@
                                     <action selector="settings" destination="2" eventType="touchUpInside" id="W34-SF-y4p"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="top" image="Padlock" translatesAutoresizingMaskIntoConstraints="NO" id="ibB-vL-86l" userLabel="Image View - Background">
+                                <rect key="frame" x="180" y="196" width="240" height="240"/>
+                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Hs-N2-o2x" userLabel="View - Domain Popup">
                                 <rect key="frame" x="180" y="124" width="240" height="125"/>
                                 <subviews>
@@ -296,6 +296,7 @@
                             <constraint firstItem="bVv-5p-2mC" firstAttribute="leading" secondItem="3" secondAttribute="leading" id="q2Z-s8-ED0"/>
                             <constraint firstAttribute="trailing" secondItem="FBz-9R-IZS" secondAttribute="trailing" constant="16" id="rPG-Uz-g94"/>
                             <constraint firstItem="LRc-2i-vlU" firstAttribute="top" secondItem="3" secondAttribute="top" constant="242" id="rza-Jy-nVI"/>
+                            <constraint firstItem="ibB-vL-86l" firstAttribute="top" secondItem="05y-Ke-SPJ" secondAttribute="top" id="x99-3M-ovQ"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -304,6 +305,7 @@
                                 <exclude reference="Ufx-jl-h1P"/>
                                 <exclude reference="g4r-lU-ZNq"/>
                                 <exclude reference="19E-qb-FZd"/>
+                                <exclude reference="AiH-GK-Gc9"/>
                                 <exclude reference="rza-Jy-nVI"/>
                                 <exclude reference="bbw-zJ-1SI"/>
                             </mask>
@@ -959,6 +961,6 @@
         <image name="WelcomeOverlay" width="320" height="200"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="FHk-Y3-dxx"/>
+        <segue reference="Rg6-Hg-fxo"/>
     </inferredMetricsTieBreakers>
 </document>

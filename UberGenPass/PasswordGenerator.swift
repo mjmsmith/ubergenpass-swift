@@ -152,7 +152,7 @@ class PasswordGenerator {
 
   // MARK: Private
 
-  func isValidPassword(password: String) -> Bool {
+  private func isValidPassword(password: String) -> Bool {
     let range = NSMakeRange(0, (password as NSString).length)
 
     return self.lowerCasePattern.rangeOfFirstMatchInString(password, options:NSMatchingOptions(), range:range).location == 0 &&

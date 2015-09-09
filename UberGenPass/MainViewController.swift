@@ -169,9 +169,11 @@ class MainViewController: AppViewController {
       // If we can authorize with Touch ID, try that first.  If that fails or we can't use it now,
       // force transition to the Settings view.
 
-      if NSUserDefaults.standardUserDefaults().boolForKey(Constants.TouchIDEnabledDefaultsKey) &&
-         PasswordGenerator.sharedGenerator.hasMasterPassword &&
-         authContext.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: &authError) {
+      let hasMasterPassword = PasswordGenerator.sharedGenerator.hasMasterPassword
+      let hasTouchID = authContext.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: &authError)
+      let touchIDEnabled = NSUserDefaults.standardUserDefaults().boolForKey(Constants.TouchIDEnabledDefaultsKey)
+      
+      if hasMasterPassword && hasTouchID && touchIDEnabled {
         authContext.evaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics,
           localizedReason: NSLocalizedString(Constants.AuthenticateString, comment: ""),
           reply: { (success: Bool, error: NSError?) in

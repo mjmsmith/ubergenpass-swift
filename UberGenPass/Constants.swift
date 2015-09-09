@@ -27,7 +27,7 @@ struct Constants {
   
   static let MatchingSitesTableViewCellIdentifier = "MatchingSitesTableViewCell"
   
-  // Strings.
+  // Localized strings.
   
   static let AuthenticateString = "Authenticate"
   

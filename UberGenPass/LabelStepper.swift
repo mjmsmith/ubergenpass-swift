@@ -21,6 +21,8 @@ class LabelStepper: UIStepper {
     return self.imageFromView(self.label)
   }
 
+  //MARK: Private
+  
   private func initLabel() {
     self.label.frame = CGRect(x: 0, y: 0, width: 30, height: self.frame.size.height)
     
