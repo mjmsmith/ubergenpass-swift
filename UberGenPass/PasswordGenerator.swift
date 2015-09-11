@@ -63,11 +63,11 @@ class PasswordGenerator {
 
   func domainFromSite(var site: String) -> String? {
     if self.domainPattern.numberOfMatchesInString(site, options:NSMatchingOptions(), range:NSMakeRange(0, (site as NSString).length)) == 0 {
-      return nil;
+      return nil
     }
 
     if site.rangeOfString("://") == nil {
-      site = "//" + site;
+      site = "//" + site
     }
 
     guard let url = NSURL(string: site) else { return nil }

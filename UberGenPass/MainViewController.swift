@@ -523,8 +523,8 @@ extension MainViewController: SettingsViewControllerDelegate {
     }
     else {
       if self.recentSites != nil {
-        self.recentSites = nil;
-        self.matchingSites = nil;
+        self.recentSites = nil
+        self.matchingSites = nil
         self.matchingSitesView.hidden = true
         
         Keychain.removeStringForKey(Constants.RecentSitesKeychainKey)

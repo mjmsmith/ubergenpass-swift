@@ -45,7 +45,7 @@ class Keychain {
     }
 
     if status != noErr {
-      return nil;
+      return nil
     }
     
     return NSString(data: result as! NSData, encoding: NSUTF8StringEncoding) as? String

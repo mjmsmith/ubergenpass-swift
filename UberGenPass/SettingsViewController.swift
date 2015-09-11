@@ -2,8 +2,8 @@ import LocalAuthentication
 import UIKit
 
 protocol SettingsViewControllerDelegate: class {
-  func settingsViewControllerDidFinish(settingsViewController: SettingsViewController);
-  func settingsViewControllerDidCancel(settingsViewController: SettingsViewController);
+  func settingsViewControllerDidFinish(settingsViewController: SettingsViewController)
+  func settingsViewControllerDidCancel(settingsViewController: SettingsViewController)
 }
 
 class SettingsViewController: AppViewController {

@@ -163,7 +163,7 @@ extension PasswordsViewController: UITextFieldDelegate {
       case self.lowerSecretTextField:
         self.upperMasterTextField.becomeFirstResponder()
       default:
-        break;
+        break
     }
     
     return false
