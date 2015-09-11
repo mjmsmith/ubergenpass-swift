@@ -4,4 +4,4 @@ link_with "UberGenPass", "UberGenPassTests"
 
 pod "Crashlytics"
 pod "Fabric"
-pod "Reveal-iOS-SDK", :configurations => ["Debug"]
+# pod "Reveal-iOS-SDK", :configurations => ["Debug"]
