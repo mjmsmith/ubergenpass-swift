@@ -133,7 +133,7 @@ class MainViewController: AppViewController {
   
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
-    
+
     // If we have no master password, force a segue to Settings (only happens on startup).
     // Otherwise, set focus if we have no site text.
 
@@ -172,8 +172,9 @@ class MainViewController: AppViewController {
       let hasMasterPassword = PasswordGenerator.sharedGenerator.hasMasterPassword
       let hasTouchID = authContext.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: &authError)
       let touchIDEnabled = NSUserDefaults.standardUserDefaults().boolForKey(Constants.TouchIDEnabledDefaultsKey)
+      let settingsViewActive = self.presentedViewController is SettingsViewController
       
-      if hasMasterPassword && hasTouchID && touchIDEnabled {
+      if hasMasterPassword && hasTouchID && touchIDEnabled && !settingsViewActive {
         authContext.evaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics,
           localizedReason: NSLocalizedString(Constants.AuthenticateString, comment: ""),
           reply: { (success: Bool, error: NSError?) in
