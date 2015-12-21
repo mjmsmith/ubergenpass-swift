@@ -15,14 +15,14 @@ enum KeychainKey: String {
   case RecentSites
 }
 
+enum LocalizedString: String {
+  case Authenticate
+}
+
 struct Constants {
   // Table view cells.
   
   static let MatchingSitesTableViewCellIdentifier = "MatchingSitesTableViewCell"
-  
-  // Localized strings.
-  
-  static let AuthenticateString = "Authenticate"
   
   // Misc.
   

@@ -183,7 +183,7 @@ class MainViewController: AppViewController {
       
       if hasMasterPassword && hasTouchID && touchIDEnabled && !settingsViewActive {
         authContext.evaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics,
-          localizedReason: NSLocalizedString(Constants.AuthenticateString, comment: ""),
+          localizedReason: NSLocalizedString(LocalizedString.Authenticate.rawValue, comment: ""),
           reply: { (success: Bool, error: NSError?) in
             dispatch_async(dispatch_get_main_queue(), {
               if success {
