@@ -31,7 +31,7 @@ class PasswordGenerator {
     
     self.tlds = NSMutableOrderedSet(array: tldsArray as! [String])
 
-    if let hashStr = Keychain.stringForKey(Constants.PasswordHashKeychainKey) {
+    if let hashStr = Keychain.stringForKey(KeychainKey.Hash.rawValue) {
       self.passwordHash = NSData(base64EncodedString: hashStr, options: NSDataBase64DecodingOptions())
     }
 
@@ -115,7 +115,7 @@ class PasswordGenerator {
 
     self.masterPassword = masterPassword
 
-    if let secretPasswordStr = Keychain.stringForKey(Constants.PasswordSecretKeychainKey) {
+    if let secretPasswordStr = Keychain.stringForKey(KeychainKey.Secret.rawValue) {
       var secretPasswordData = NSData(base64EncodedString: secretPasswordStr, options:NSDataBase64DecodingOptions())!
       
       secretPasswordData = try! secretPasswordData.decryptedAES256DataUsingKey(masterPassword)
@@ -137,8 +137,8 @@ class PasswordGenerator {
 
     let secret = try! secretPassword.dataUsingEncoding(NSUTF8StringEncoding)!.AES256EncryptedDataUsingKey(masterPassword)
 
-    Keychain.setString(passwordHash.base64EncodedStringWithOptions(NSDataBase64EncodingOptions()), forKey:Constants.PasswordHashKeychainKey)
-    Keychain.setString(secret.base64EncodedStringWithOptions(NSDataBase64EncodingOptions()), forKey:Constants.PasswordSecretKeychainKey)
+    Keychain.setString(passwordHash.base64EncodedStringWithOptions(NSDataBase64EncodingOptions()), forKey:KeychainKey.Hash.rawValue)
+    Keychain.setString(secret.base64EncodedStringWithOptions(NSDataBase64EncodingOptions()), forKey:KeychainKey.Secret.rawValue)
   }
 
   func textMatchesHash(text: String) -> Bool {

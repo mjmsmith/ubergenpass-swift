@@ -61,9 +61,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // If we have no previous version, remove keychain items in case this is a reinstall.
     
     if defaultsVersion == nil {
-      Keychain.removeStringForKey(Constants.PasswordHashKeychainKey)
-      Keychain.removeStringForKey(Constants.PasswordSecretKeychainKey)
-      Keychain.removeStringForKey(Constants.RecentSitesKeychainKey)
+      Keychain.removeStringForKey(KeychainKey.Hash.rawValue)
+      Keychain.removeStringForKey(KeychainKey.Secret.rawValue)
+      Keychain.removeStringForKey(KeychainKey.RecentSites.rawValue)
     }
     
     NSUserDefaults.standardUserDefaults().setObject(currentVersion, forKey: UserDefaultsKey.AppVersion.rawValue)

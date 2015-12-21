@@ -46,7 +46,7 @@ class MainViewController: AppViewController {
     
     // Recent sites.
     
-    if let str = Keychain.stringForKey(Constants.RecentSitesKeychainKey) {
+    if let str = Keychain.stringForKey(KeychainKey.RecentSites.rawValue) {
       let data = str.dataUsingEncoding(NSUTF8StringEncoding) ?? NSData()
       
       do {
@@ -430,7 +430,7 @@ class MainViewController: AppViewController {
   private func saveRecentSites() {
     let data = try! NSJSONSerialization.dataWithJSONObject(self.recentSites!.array, options: NSJSONWritingOptions())
     
-    Keychain.setString((NSString(data: data, encoding: NSUTF8StringEncoding)! as String), forKey: Constants.RecentSitesKeychainKey)
+    Keychain.setString((NSString(data: data, encoding: NSUTF8StringEncoding)! as String), forKey: KeychainKey.RecentSites.rawValue)
   }
   
   private func sizeAndShowMatchingSitesView() {
@@ -535,7 +535,7 @@ extension MainViewController: SettingsViewControllerDelegate {
         self.matchingSites = nil
         self.matchingSitesView.hidden = true
         
-        Keychain.removeStringForKey(Constants.RecentSitesKeychainKey)
+        Keychain.removeStringForKey(KeychainKey.RecentSites.rawValue)
       }
     }
     

@@ -9,13 +9,13 @@ enum UserDefaultsKey: String {
   case WelcomeShown
 }
 
+enum KeychainKey: String {
+  case Hash
+  case Secret
+  case RecentSites
+}
+
 struct Constants {
-  // Keychain.
-
-  static let PasswordHashKeychainKey = "Hash"
-  static let PasswordSecretKeychainKey = "Secret"
-  static let RecentSitesKeychainKey = "RecentSites"
-
   // Table view cells.
   
   static let MatchingSitesTableViewCellIdentifier = "MatchingSitesTableViewCell"
