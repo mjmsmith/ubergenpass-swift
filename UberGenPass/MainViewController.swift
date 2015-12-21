@@ -69,11 +69,11 @@ class MainViewController: AppViewController {
     
     self.passwordLengthStepper.minimumValue = 4
     self.passwordLengthStepper.maximumValue = 24
-    self.passwordLengthStepper.value = Double(NSUserDefaults.standardUserDefaults().integerForKey(Constants.PasswordLengthDefaultsKey))
+    self.passwordLengthStepper.value = Double(NSUserDefaults.standardUserDefaults().integerForKey(UserDefaultsKey.PasswordLength.rawValue))
     
     // Password type.
     
-    if NSUserDefaults.standardUserDefaults().stringForKey(Constants.PasswordTypeDefaultsKey) == PasswordType.SHA512.rawValue {
+    if NSUserDefaults.standardUserDefaults().stringForKey(UserDefaultsKey.PasswordType.rawValue) == PasswordType.SHA512.rawValue {
       self.passwordTypeSegment.selectedSegmentIndex = 1
     }
     else {
@@ -169,7 +169,7 @@ class MainViewController: AppViewController {
     
     // Has the background timeout elapsed?
     
-    if elapsed > Double(NSUserDefaults.standardUserDefaults().integerForKey(Constants.BackgroundTimeoutDefaultsKey)) {
+    if elapsed > Double(NSUserDefaults.standardUserDefaults().integerForKey(UserDefaultsKey.BackgroundTimeout.rawValue)) {
       var authError: NSError?
       let authContext = LAContext()
       
@@ -178,7 +178,7 @@ class MainViewController: AppViewController {
 
       let hasMasterPassword = PasswordGenerator.sharedGenerator.hasMasterPassword
       let hasTouchID = authContext.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: &authError)
-      let touchIDEnabled = NSUserDefaults.standardUserDefaults().boolForKey(Constants.TouchIDEnabledDefaultsKey)
+      let touchIDEnabled = NSUserDefaults.standardUserDefaults().boolForKey(UserDefaultsKey.TouchIDEnabled.rawValue)
       let settingsViewActive = self.presentedViewController is SettingsViewController
       
       if hasMasterPassword && hasTouchID && touchIDEnabled && !settingsViewActive {
@@ -254,7 +254,7 @@ class MainViewController: AppViewController {
   }
 
   @IBAction private func passwordLengthChanged() {
-    NSUserDefaults.standardUserDefaults().setInteger(Int(self.passwordLengthStepper.value), forKey: Constants.PasswordLengthDefaultsKey)
+    NSUserDefaults.standardUserDefaults().setInteger(Int(self.passwordLengthStepper.value), forKey: UserDefaultsKey.PasswordLength.rawValue)
     NSUserDefaults.standardUserDefaults().synchronize()
     
     if !self.passwordTextField.hidden {
@@ -266,7 +266,7 @@ class MainViewController: AppViewController {
   @IBAction private func passwordTypeChanged() {
     let passwordType = [PasswordType.MD5, PasswordType.SHA512][self.passwordTypeSegment.selectedSegmentIndex]
     
-    NSUserDefaults.standardUserDefaults().setObject(passwordType.rawValue, forKey: Constants.PasswordTypeDefaultsKey)
+    NSUserDefaults.standardUserDefaults().setObject(passwordType.rawValue, forKey: UserDefaultsKey.PasswordType.rawValue)
     NSUserDefaults.standardUserDefaults().synchronize()
     
     if !self.passwordTextField.hidden {
@@ -379,9 +379,9 @@ class MainViewController: AppViewController {
   }
   
   private func configureSettingsViewController(settingsViewController: SettingsViewController) {
-    settingsViewController.backgroundTimeout = NSUserDefaults.standardUserDefaults().integerForKey(Constants.BackgroundTimeoutDefaultsKey)
+    settingsViewController.backgroundTimeout = NSUserDefaults.standardUserDefaults().integerForKey(UserDefaultsKey.BackgroundTimeout.rawValue)
     settingsViewController.remembersRecentSites = (self.recentSites != nil)
-    settingsViewController.touchIDEnabled = NSUserDefaults.standardUserDefaults().boolForKey(Constants.TouchIDEnabledDefaultsKey)
+    settingsViewController.touchIDEnabled = NSUserDefaults.standardUserDefaults().boolForKey(UserDefaultsKey.TouchIDEnabled.rawValue)
   }
   
   private func addToRecentSites() {
@@ -539,8 +539,8 @@ extension MainViewController: SettingsViewControllerDelegate {
       }
     }
     
-    NSUserDefaults.standardUserDefaults().setBool(settingsViewController.touchIDEnabled, forKey:Constants.TouchIDEnabledDefaultsKey)
-    NSUserDefaults.standardUserDefaults().setInteger(settingsViewController.backgroundTimeout, forKey:Constants.BackgroundTimeoutDefaultsKey)
+    NSUserDefaults.standardUserDefaults().setBool(settingsViewController.touchIDEnabled, forKey:UserDefaultsKey.TouchIDEnabled.rawValue)
+    NSUserDefaults.standardUserDefaults().setInteger(settingsViewController.backgroundTimeout, forKey:UserDefaultsKey.BackgroundTimeout.rawValue)
     NSUserDefaults.standardUserDefaults().synchronize()
     
     if !self.passwordTextField.hidden {

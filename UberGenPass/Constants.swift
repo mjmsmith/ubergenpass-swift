@@ -1,15 +1,15 @@
 import UIKit
 
+enum UserDefaultsKey: String {
+  case AppVersion
+  case BackgroundTimeout
+  case PasswordLength
+  case PasswordType
+  case TouchIDEnabled
+  case WelcomeShown
+}
+
 struct Constants {
-  // User defaults.
-  
-  static let AppVersionDefaultsKey = "AppVersion"
-  static let BackgroundTimeoutDefaultsKey = "BackgroundTimeout"
-  static let PasswordLengthDefaultsKey = "PasswordLength"
-  static let PasswordTypeDefaultsKey = "PasswordType"
-  static let TouchIDEnabledDefaultsKey = "TouchIDEnabled"
-  static let WelcomeShownDefaultsKey = "WelcomeShown"
-  
   // Keychain.
 
   static let PasswordHashKeychainKey = "Hash"

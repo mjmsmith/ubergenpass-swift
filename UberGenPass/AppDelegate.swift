@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Update version.
     
     let currentVersion = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as! String
-    let defaultsVersion = NSUserDefaults.standardUserDefaults().stringForKey(Constants.AppVersionDefaultsKey) as String?
+    let defaultsVersion = NSUserDefaults.standardUserDefaults().stringForKey(UserDefaultsKey.AppVersion.rawValue) as String?
 
     if (currentVersion != defaultsVersion) {
       self.versionUpdatedFrom(defaultsVersion, to:currentVersion)
@@ -66,7 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       Keychain.removeStringForKey(Constants.RecentSitesKeychainKey)
     }
     
-    NSUserDefaults.standardUserDefaults().setObject(currentVersion, forKey: Constants.AppVersionDefaultsKey)
+    NSUserDefaults.standardUserDefaults().setObject(currentVersion, forKey: UserDefaultsKey.AppVersion.rawValue)
     NSUserDefaults.standardUserDefaults().synchronize()
   }
 }

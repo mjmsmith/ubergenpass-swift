@@ -47,12 +47,12 @@ class PasswordsViewController: AppViewController {
 
     self.cancelButtonItem.enabled = self.canCancel
     
-    if NSUserDefaults.standardUserDefaults().boolForKey(Constants.WelcomeShownDefaultsKey) {
+    if NSUserDefaults.standardUserDefaults().boolForKey(UserDefaultsKey.WelcomeShown.rawValue) {
       self.welcomeImageView.removeFromSuperview()
       self.upperMasterTextField.becomeFirstResponder()
     }
     else {
-      NSUserDefaults.standardUserDefaults().setBool(true, forKey: Constants.WelcomeShownDefaultsKey)
+      NSUserDefaults.standardUserDefaults().setBool(true, forKey: UserDefaultsKey.WelcomeShown.rawValue)
     }
     
     self.editingChanged(nil)
