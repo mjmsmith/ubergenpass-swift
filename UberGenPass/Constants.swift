@@ -20,9 +20,6 @@ enum LocalizedString: String {
 }
 
 struct Constants {
-  // Table view cells.
-  
-  static let MatchingSitesTableViewCellIdentifier = "MatchingSitesTableViewCell"
   
   // Misc.
   

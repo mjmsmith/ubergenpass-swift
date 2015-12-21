@@ -8,6 +8,10 @@ class MainViewController: AppViewController {
     case Help
     case Settings
   }
+
+  enum TableViewCellIdentifier: String {
+    case MatchingSitesTableViewCell
+  }
   
   @IBOutlet weak private var logoImageView: UIImageView!
   @IBOutlet weak private var siteTextField: UITextField!
@@ -458,7 +462,7 @@ extension MainViewController: UITableViewDataSource {
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = self.matchingSitesTableView.dequeueReusableCellWithIdentifier(Constants.MatchingSitesTableViewCellIdentifier)!
+    let cell = self.matchingSitesTableView.dequeueReusableCellWithIdentifier(TableViewCellIdentifier.MatchingSitesTableViewCell.rawValue)!
     
     cell.textLabel!.text = self.matchingSites![indexPath.row]
     
