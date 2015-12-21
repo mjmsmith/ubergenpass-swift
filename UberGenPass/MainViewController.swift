@@ -2,6 +2,13 @@ import LocalAuthentication
 import UIKit
 
 class MainViewController: AppViewController {
+
+  enum SegueIdentifier: String {
+    case About
+    case Help
+    case Settings
+  }
+  
   @IBOutlet weak private var logoImageView: UIImageView!
   @IBOutlet weak private var siteTextField: UITextField!
   @IBOutlet weak private var passwordLengthStepper: UIStepper!
@@ -279,7 +286,7 @@ class MainViewController: AppViewController {
   }
   
   @IBAction private func help() {
-    self.performSegueWithIdentifier(Constants.HelpSegueIdentifier) { (segue) in
+    self.performSegueWithIdentifier(SegueIdentifier.Help.rawValue) { (segue) in
       let helpViewController = segue.destinationViewController as! HelpViewController
       
       helpViewController.documentName = "MainHelp"
@@ -288,7 +295,7 @@ class MainViewController: AppViewController {
   }
 
   @IBAction private func about() {
-    self.performSegueWithIdentifier(Constants.AboutSegueIdentifier) { (segue) in
+    self.performSegueWithIdentifier(SegueIdentifier.About.rawValue) { (segue) in
       let aboutViewController = segue.destinationViewController as! AboutViewController
       
       aboutViewController.delegate = self
@@ -296,7 +303,7 @@ class MainViewController: AppViewController {
   }
   
   @IBAction private func settings() {
-    self.performSegueWithIdentifier(Constants.SettingsSegueIdentifier, preparation: { (segue: UIStoryboardSegue) in
+    self.performSegueWithIdentifier(SegueIdentifier.Settings.rawValue, preparation: { (segue: UIStoryboardSegue) in
       let settingsViewController = segue.destinationViewController as! SettingsViewController
       
       settingsViewController.canCancel = PasswordGenerator.sharedGenerator.hasMasterPassword
@@ -361,7 +368,7 @@ class MainViewController: AppViewController {
         self.dismissViewControllerAnimated(false, completion: nil)
       }
       
-      self.performSegueWithIdentifier(Constants.SettingsSegueIdentifier, preparation: { (segue) in
+      self.performSegueWithIdentifier(SegueIdentifier.Settings.rawValue, preparation: { (segue) in
         let settingsViewController = segue.destinationViewController as! SettingsViewController
         
         settingsViewController.canCancel = false

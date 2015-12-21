@@ -6,6 +6,11 @@ protocol PasswordsViewControllerDelegate: class {
 }
 
 class PasswordsViewController: AppViewController {
+  
+  enum SegueIdentifier: String {
+    case Help
+  }
+  
   weak var delegate: PasswordsViewControllerDelegate?
   var canCancel = false
   var masterPassword = ""
@@ -130,7 +135,7 @@ class PasswordsViewController: AppViewController {
   }
   
   @IBAction private func help() {
-    self.performSegueWithIdentifier(Constants.HelpSegueIdentifier) { (segue) in
+    self.performSegueWithIdentifier(SegueIdentifier.Help.rawValue) { (segue) in
       let helpViewController = segue.destinationViewController as! HelpViewController
       
       helpViewController.documentName = "PasswordsHelp"

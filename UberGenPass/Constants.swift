@@ -16,13 +16,6 @@ struct Constants {
   static let PasswordSecretKeychainKey = "Secret"
   static let RecentSitesKeychainKey = "RecentSites"
 
-  // Segues.
-  
-  static let AboutSegueIdentifier = "About"
-  static let HelpSegueIdentifier = "Help"
-  static let PasswordsSegueIdentifier = "Passwords"
-  static let SettingsSegueIdentifier = "Settings"
-  
   // Table view cells.
   
   static let MatchingSitesTableViewCellIdentifier = "MatchingSitesTableViewCell"

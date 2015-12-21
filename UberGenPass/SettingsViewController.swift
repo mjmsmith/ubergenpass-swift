@@ -7,6 +7,12 @@ protocol SettingsViewControllerDelegate: class {
 }
 
 class SettingsViewController: AppViewController {
+  
+  enum SegueIdentifier: String {
+    case Help
+    case Passwords
+  }
+  
   var canCancel = true
   var masterPassword = ""
   var remembersRecentSites = false
@@ -67,7 +73,7 @@ class SettingsViewController: AppViewController {
     // If we have no master password hash, force a segue to Passwords (only happens on startup).
     
     if !PasswordGenerator.sharedGenerator.hasPasswordHash {
-      self.performSegueWithIdentifier(Constants.PasswordsSegueIdentifier, preparation: { (segue) in
+      self.performSegueWithIdentifier(SegueIdentifier.Passwords.rawValue, preparation: { (segue) in
         let passwordsViewController = segue.destinationViewController as! PasswordsViewController
         
         passwordsViewController.canCancel = false
@@ -115,7 +121,7 @@ class SettingsViewController: AppViewController {
   }
 
   @IBAction private func changePasswords() {
-    self.performSegueWithIdentifier(Constants.PasswordsSegueIdentifier) { (segue) in
+    self.performSegueWithIdentifier(SegueIdentifier.Passwords.rawValue) { (segue) in
       let passwordsViewController = segue.destinationViewController as! PasswordsViewController
       
       passwordsViewController.canCancel = true
@@ -124,7 +130,7 @@ class SettingsViewController: AppViewController {
   }
   
   @IBAction private func help() {
-    self.performSegueWithIdentifier(Constants.HelpSegueIdentifier) { (segue) in
+    self.performSegueWithIdentifier(SegueIdentifier.Help.rawValue) { (segue) in
       let helpViewController = segue.destinationViewController as! HelpViewController
       
       helpViewController.documentName = "SettingsHelp"
