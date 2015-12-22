@@ -8,7 +8,7 @@ protocol SettingsViewControllerDelegate: class {
 
 class SettingsViewController: AppViewController {
   
-  enum SegueIdentifier: String {
+  private enum SegueIdentifier: String {
     case Help
     case Passwords
   }

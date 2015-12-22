@@ -7,7 +7,7 @@ protocol PasswordsViewControllerDelegate: class {
 
 class PasswordsViewController: AppViewController {
   
-  enum SegueIdentifier: String {
+  private enum SegueIdentifier: String {
     case Help
   }
   

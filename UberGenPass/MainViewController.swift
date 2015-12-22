@@ -3,15 +3,15 @@ import UIKit
 
 class MainViewController: AppViewController {
 
-  static let MaxRecentSites = 50
+  private static let MaxRecentSites = 50
   
-  enum SegueIdentifier: String {
+  private enum SegueIdentifier: String {
     case About
     case Help
     case Settings
   }
 
-  enum TableViewCellIdentifier: String {
+  private enum TableViewCellIdentifier: String {
     case MatchingSitesTableViewCell
   }
   
