@@ -3,6 +3,8 @@ import UIKit
 
 class MainViewController: AppViewController {
 
+  static let MaxRecentSites = 50
+  
   enum SegueIdentifier: String {
     case About
     case Help
@@ -400,7 +402,7 @@ class MainViewController: AppViewController {
   
       self.recentSites!.removeObject(site)
   
-      if self.recentSites!.count >= Constants.MaxRecentSites {
+      if self.recentSites!.count >= MainViewController.MaxRecentSites {
         self.recentSites!.removeObjectAtIndex(0)
       }
   

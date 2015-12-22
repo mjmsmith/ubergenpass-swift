@@ -18,10 +18,3 @@ enum KeychainKey: String {
 enum LocalizedString: String {
   case Authenticate
 }
-
-struct Constants {
-  
-  // Misc.
-  
-  static let MaxRecentSites = 50
-}
