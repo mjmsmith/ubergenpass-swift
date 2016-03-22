@@ -99,7 +99,7 @@ class MainViewController: AppViewController {
     
     self.matchingSitesView.layer.shadowColor = UIColor.blackColor().CGColor
     self.matchingSitesView.layer.shadowOpacity = 0.5
-    self.matchingSitesView.layer.shadowOffset = CGSizeMake(0, 2)
+    self.matchingSitesView.layer.shadowOffset = CGSize(width: 0, height: 2)
     self.matchingSitesView.layer.shadowRadius = 4
     self.matchingSitesView.layer.cornerRadius = 4
     
