@@ -61,20 +61,18 @@ class PasswordGenerator {
     return password.substringToIndex(length)
   }
 
-  func domainFromSite(var site: String) -> String? {
+  func domainFromSite(site: String) -> String? {
     if self.domainPattern.numberOfMatchesInString(site, options:NSMatchingOptions(), range:NSMakeRange(0, (site as NSString).length)) == 0 {
       return nil
     }
 
-    if site.rangeOfString("://") == nil {
-      site = "//" + site
-    }
-
-    guard let url = NSURL(string: site) else { return nil }
-    guard let host = url.host?.lowercaseString else { return nil }
+    let url = site.containsString("://") ? site : "//\(site)"
+    
+    guard let URL = NSURL(string: url) else { return nil }
+    guard let host = URL.host?.lowercaseString else { return nil }
     var domain: String? = nil
 
-    if site.hasPrefix("//") {
+    if url.hasPrefix("//") {
       domain = host
     }
     else {

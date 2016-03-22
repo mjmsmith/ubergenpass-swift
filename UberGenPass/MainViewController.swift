@@ -129,17 +129,17 @@ class MainViewController: AppViewController {
     // Notifications.
     
     NSNotificationCenter.defaultCenter().addObserver(self,
-      selector: Selector("applicationDidEnterBackground:"),
+      selector: #selector(UIApplicationDelegate.applicationDidEnterBackground(_:)),
       name: UIApplicationDidEnterBackgroundNotification,
       object: nil)
 
     NSNotificationCenter.defaultCenter().addObserver(self,
-      selector: Selector("applicationWillEnterForeground:"),
+      selector: #selector(UIApplicationDelegate.applicationWillEnterForeground(_:)),
       name: UIApplicationWillEnterForegroundNotification,
       object: nil)
 
     NSNotificationCenter.defaultCenter().addObserver(self,
-      selector: Selector("pasteboardChanged:"),
+      selector: #selector(MainViewController.pasteboardChanged(_:)),
       name: UIPasteboardChangedNotification,
       object: UIPasteboard.generalPasteboard())
   }
