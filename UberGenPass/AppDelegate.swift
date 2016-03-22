@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // Register defaults.
     
-    let dict = NSDictionary(contentsOfFile: NSBundle.mainBundle().pathForResource("UserDefaults", ofType:"plist")!)
+    let dict = NSDictionary(contentsOfFile: NSBundle.mainBundle().pathForResource("UserDefaults", ofType: "plist")!)
     
     NSUserDefaults.standardUserDefaults().registerDefaults(dict as! Dictionary)
 
@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let defaultsVersion = NSUserDefaults.standardUserDefaults().stringForKey(UserDefaultsKey.AppVersion.rawValue) as String?
 
     if (currentVersion != defaultsVersion) {
-      self.versionUpdatedFrom(defaultsVersion, to:currentVersion)
+      self.versionUpdatedFrom(defaultsVersion, to: currentVersion)
     }
     
     return true

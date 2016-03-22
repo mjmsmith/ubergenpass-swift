@@ -4,7 +4,7 @@ import Security
 class Keychain {
 
   static func setString(inputString: String, forKey account: String) {
-    var query: [String:AnyObject] = [
+    var query: [String: AnyObject] = [
       kSecClass as String: kSecClassGenericPassword,
       kSecAttrAccount as String: account,
       kSecAttrAccessible as String: kSecAttrAccessibleWhenUnlocked
@@ -34,7 +34,7 @@ class Keychain {
   }
 
   static func stringForKey(account: String) -> String? {
-    let query: [String:AnyObject] = [
+    let query: [String: AnyObject] = [
       kSecClass as String: kSecClassGenericPassword,
       kSecAttrAccount as String: account,
       kSecReturnData as String: kCFBooleanTrue
@@ -52,7 +52,7 @@ class Keychain {
   }
   
   static func removeStringForKey(account: String) {
-    let query: [String:AnyObject] = [
+    let query: [String: AnyObject] = [
       kSecClass as String: kSecClassGenericPassword,
       kSecAttrAccount as String: account
     ]

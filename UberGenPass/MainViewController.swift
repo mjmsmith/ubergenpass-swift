@@ -545,8 +545,8 @@ extension MainViewController: SettingsViewControllerDelegate {
       }
     }
     
-    NSUserDefaults.standardUserDefaults().setBool(settingsViewController.touchIDEnabled, forKey:UserDefaultsKey.TouchIDEnabled.rawValue)
-    NSUserDefaults.standardUserDefaults().setInteger(settingsViewController.backgroundTimeout, forKey:UserDefaultsKey.BackgroundTimeout.rawValue)
+    NSUserDefaults.standardUserDefaults().setBool(settingsViewController.touchIDEnabled, forKey: UserDefaultsKey.TouchIDEnabled.rawValue)
+    NSUserDefaults.standardUserDefaults().setInteger(settingsViewController.backgroundTimeout, forKey: UserDefaultsKey.BackgroundTimeout.rawValue)
     NSUserDefaults.standardUserDefaults().synchronize()
     
     if !self.passwordTextField.hidden {
@@ -555,7 +555,7 @@ extension MainViewController: SettingsViewControllerDelegate {
     }
     
     self.removeBlurView()
-    self.dismissViewControllerAnimated(true, completion:nil)
+    self.dismissViewControllerAnimated(true, completion: nil)
   }
 
   func settingsViewControllerDidCancel(settingsViewController: SettingsViewController) {
@@ -564,6 +564,6 @@ extension MainViewController: SettingsViewControllerDelegate {
       self.updateClipboardCheckmark()
     }
     
-    self.dismissViewControllerAnimated(true, completion:nil)
+    self.dismissViewControllerAnimated(true, completion: nil)
   }
 }

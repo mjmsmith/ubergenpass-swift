@@ -20,13 +20,13 @@ class PasswordGenerator {
   private var domainPattern: NSRegularExpression
   
   private init() {
-    try! self.lowerCasePattern = NSRegularExpression(pattern:"[a-z]", options:NSRegularExpressionOptions())
-    try! self.upperCasePattern = NSRegularExpression(pattern:"[A-Z]", options:NSRegularExpressionOptions())
-    try! self.digitPattern = NSRegularExpression(pattern:"[\\d]", options:NSRegularExpressionOptions())
-    try! self.domainPattern = NSRegularExpression(pattern:"[^.]+[.][^.]+", options:NSRegularExpressionOptions())
+    try! self.lowerCasePattern = NSRegularExpression(pattern: "[a-z]", options: NSRegularExpressionOptions())
+    try! self.upperCasePattern = NSRegularExpression(pattern: "[A-Z]", options: NSRegularExpressionOptions())
+    try! self.digitPattern = NSRegularExpression(pattern: "[\\d]", options: NSRegularExpressionOptions())
+    try! self.domainPattern = NSRegularExpression(pattern: "[^.]+[.][^.]+", options: NSRegularExpressionOptions())
 
     let path = (NSBundle.mainBundle().resourcePath! as NSString).stringByAppendingPathComponent("TopLevelDomains.json")
-    let tldsData = NSData(contentsOfFile:path)!
+    let tldsData = NSData(contentsOfFile: path)!
     let tldsArray = try! NSJSONSerialization.JSONObjectWithData(tldsData, options: NSJSONReadingOptions())
     
     self.tlds = NSMutableOrderedSet(array: tldsArray as! [String])
@@ -52,9 +52,9 @@ class PasswordGenerator {
         password = password.dataUsingEncoding(NSUTF8StringEncoding)!.SHA512Hash().base64EncodedStringWithOptions(NSDataBase64EncodingOptions())
       }
 
-      password = password.stringByReplacingOccurrencesOfString("=", withString:"A")
-      password = password.stringByReplacingOccurrencesOfString("+", withString:"9")
-      password = password.stringByReplacingOccurrencesOfString("/", withString:"8")
+      password = password.stringByReplacingOccurrencesOfString("=", withString: "A")
+      password = password.stringByReplacingOccurrencesOfString("+", withString: "9")
+      password = password.stringByReplacingOccurrencesOfString("/", withString: "8")
       count += 1
     }
 
@@ -116,10 +116,10 @@ class PasswordGenerator {
     self.masterPassword = masterPassword
 
     if let secretPasswordStr = Keychain.stringForKey(KeychainKey.Secret.rawValue) {
-      var secretPasswordData = NSData(base64EncodedString: secretPasswordStr, options:NSDataBase64DecodingOptions())!
+      var secretPasswordData = NSData(base64EncodedString: secretPasswordStr, options: NSDataBase64DecodingOptions())!
       
       secretPasswordData = try! secretPasswordData.decryptedAES256DataUsingKey(masterPassword)
-      self.secretPassword = NSString(data: secretPasswordData, encoding:NSUTF8StringEncoding)! as String
+      self.secretPassword = NSString(data: secretPasswordData, encoding: NSUTF8StringEncoding)! as String
     }
     else {
       self.secretPassword = ""
@@ -137,8 +137,8 @@ class PasswordGenerator {
 
     let secret = try! secretPassword.dataUsingEncoding(NSUTF8StringEncoding)!.AES256EncryptedDataUsingKey(masterPassword)
 
-    Keychain.setString(passwordHash.base64EncodedStringWithOptions(NSDataBase64EncodingOptions()), forKey:KeychainKey.Hash.rawValue)
-    Keychain.setString(secret.base64EncodedStringWithOptions(NSDataBase64EncodingOptions()), forKey:KeychainKey.Secret.rawValue)
+    Keychain.setString(passwordHash.base64EncodedStringWithOptions(NSDataBase64EncodingOptions()), forKey: KeychainKey.Hash.rawValue)
+    Keychain.setString(secret.base64EncodedStringWithOptions(NSDataBase64EncodingOptions()), forKey: KeychainKey.Secret.rawValue)
   }
 
   func textMatchesHash(text: String) -> Bool {
@@ -155,8 +155,8 @@ class PasswordGenerator {
   private func isValidPassword(password: String) -> Bool {
     let range = NSRange(location: 0, length: password.characters.count)
 
-    return self.lowerCasePattern.rangeOfFirstMatchInString(password, options:NSMatchingOptions(), range:range).location == 0 &&
-           self.upperCasePattern.numberOfMatchesInString(password, options:NSMatchingOptions(), range:range) != 0 &&
-           self.digitPattern.numberOfMatchesInString(password, options:NSMatchingOptions(), range:range) != 0
+    return self.lowerCasePattern.rangeOfFirstMatchInString(password, options: NSMatchingOptions(), range: range).location == 0 &&
+           self.upperCasePattern.numberOfMatchesInString(password, options: NSMatchingOptions(), range: range) != 0 &&
+           self.digitPattern.numberOfMatchesInString(password, options: NSMatchingOptions(), range: range) != 0
   }
 }
