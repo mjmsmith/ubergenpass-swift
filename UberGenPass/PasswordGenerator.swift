@@ -62,7 +62,9 @@ class PasswordGenerator {
   }
 
   func domainFromSite(site: String) -> String? {
-    if self.domainPattern.numberOfMatchesInString(site, options:NSMatchingOptions(), range:NSMakeRange(0, site.characters.count)) == 0 {
+    if self.domainPattern.numberOfMatchesInString(site,
+                                                  options: NSMatchingOptions(),
+                                                  range: NSRange(location: 0, length: site.characters.count)) == 0 {
       return nil
     }
 
@@ -151,7 +153,7 @@ class PasswordGenerator {
   // MARK: Private
 
   private func isValidPassword(password: String) -> Bool {
-    let range = NSMakeRange(0, password.characters.count)
+    let range = NSRange(location: 0, length: password.characters.count)
 
     return self.lowerCasePattern.rangeOfFirstMatchInString(password, options:NSMatchingOptions(), range:range).location == 0 &&
            self.upperCasePattern.numberOfMatchesInString(password, options:NSMatchingOptions(), range:range) != 0 &&
