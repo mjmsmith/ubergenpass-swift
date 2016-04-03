@@ -17,6 +17,7 @@ class SettingsViewController: AppViewController {
   var masterPassword = ""
   var remembersRecentSites = false
   var touchIDEnabled = false
+  var savePasswordEnabled = false
   var backgroundTimeout = 0
   weak var delegate: SettingsViewControllerDelegate?
 
@@ -27,6 +28,7 @@ class SettingsViewController: AppViewController {
   @IBOutlet private weak var changePasswordButton: UIButton!
   @IBOutlet private weak var recentSitesSwitch: UISwitch!
   @IBOutlet private weak var touchIDSwitch: UISwitch!
+  @IBOutlet private weak var savePasswordSwitch: UISwitch!
   @IBOutlet private weak var timeoutSegment: UISegmentedControl!
   
   private var greyImage = UIImage(named: "GreyStatus")
@@ -54,8 +56,11 @@ class SettingsViewController: AppViewController {
     
     self.recentSitesSwitch.on = self.remembersRecentSites
 
-    self.touchIDSwitch.on = self.touchIDEnabled
     self.touchIDSwitch.enabled = hasTouchID
+    self.touchIDSwitch.on = self.touchIDEnabled
+    
+    self.savePasswordSwitch.enabled = self.touchIDSwitch.on
+    self.savePasswordSwitch.on = self.savePasswordEnabled
     
     if self.backgroundTimeout == 60 {
       self.timeoutSegment.selectedSegmentIndex = 1
@@ -116,6 +121,11 @@ class SettingsViewController: AppViewController {
     }
   }
   
+  @IBAction private func touchIDSwitchValueChanged(sender: UISwitch) {
+    self.savePasswordSwitch.enabled = self.touchIDSwitch.on
+    self.savePasswordSwitch.on = false
+  }
+  
   @IBAction private func tapGestureRecognized(recognizer: UITapGestureRecognizer) {
     self.view.endEditing(true)
   }
@@ -142,6 +152,7 @@ class SettingsViewController: AppViewController {
     self.masterPassword = self.passwordTextField.text!
     self.remembersRecentSites = self.recentSitesSwitch.on
     self.touchIDEnabled = self.touchIDSwitch.on
+    self.savePasswordEnabled = self.savePasswordSwitch.on
     self.backgroundTimeout = [0, 60, 300][self.timeoutSegment.selectedSegmentIndex]
     
     self.delegate?.settingsViewControllerDidFinish(self)

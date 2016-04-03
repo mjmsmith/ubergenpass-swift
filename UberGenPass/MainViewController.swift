@@ -33,6 +33,7 @@ class MainViewController: AppViewController {
   private var inactiveDate: NSDate?
   private var recentSites: NSMutableOrderedSet?
   private var matchingSites: [String]?
+  private var viewHasAppeared = false
 
   deinit {
     NSNotificationCenter.defaultCenter().removeObserver(self)
@@ -147,19 +148,40 @@ class MainViewController: AppViewController {
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
 
-    // If we have no master password, force a segue to Settings (only happens on startup).
-    // Otherwise, set focus if we have no site text.
+    if PasswordGenerator.sharedGenerator.hasMasterPassword {
+      if self.viewHasAppeared {
+        self.removeBlurView()
+        
+        if self.siteTextField.text ?? "" == "" {
+          self.siteTextField.becomeFirstResponder()
+        }
+      }
+      else {
+        self.addBlurView()
 
-    if !PasswordGenerator.sharedGenerator.hasMasterPassword {
-      self.settings()
-    }
-    else {
-      self.removeBlurView()
-      
-      if self.siteTextField.text ?? "" == "" {
-        self.siteTextField.becomeFirstResponder()
+        LAContext().evaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics,
+                                   localizedReason: NSLocalizedString(LocalizedString.Authenticate.rawValue, comment: ""),
+                                   reply: { (success: Bool, error: NSError?) in
+                                    dispatch_async(dispatch_get_main_queue(), {
+                                      if success {
+                                        self.removeBlurView()
+                                        
+                                        if self.siteTextField.text ?? "" == "" {
+                                          self.siteTextField.becomeFirstResponder()
+                                        }
+                                      }
+                                      else {
+                                        self.forceSettings()
+                                      }
+                                    })
+        })
       }
     }
+    else {
+      self.settings()
+    }
+  
+    self.viewHasAppeared = true
   }
 
   override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
@@ -388,6 +410,7 @@ class MainViewController: AppViewController {
     settingsViewController.backgroundTimeout = NSUserDefaults.standardUserDefaults().integerForKey(UserDefaultsKey.BackgroundTimeout.rawValue)
     settingsViewController.remembersRecentSites = (self.recentSites != nil)
     settingsViewController.touchIDEnabled = NSUserDefaults.standardUserDefaults().boolForKey(UserDefaultsKey.TouchIDEnabled.rawValue)
+    settingsViewController.savePasswordEnabled = NSUserDefaults.standardUserDefaults().boolForKey(UserDefaultsKey.SavePasswordEnabled.rawValue)
   }
   
   private func addToRecentSites() {
@@ -546,8 +569,11 @@ extension MainViewController: SettingsViewControllerDelegate {
     }
     
     NSUserDefaults.standardUserDefaults().setBool(settingsViewController.touchIDEnabled, forKey: UserDefaultsKey.TouchIDEnabled.rawValue)
+    NSUserDefaults.standardUserDefaults().setBool(settingsViewController.savePasswordEnabled, forKey: UserDefaultsKey.SavePasswordEnabled.rawValue)
     NSUserDefaults.standardUserDefaults().setInteger(settingsViewController.backgroundTimeout, forKey: UserDefaultsKey.BackgroundTimeout.rawValue)
     NSUserDefaults.standardUserDefaults().synchronize()
+    
+    PasswordGenerator.sharedGenerator.updateKeychain()
     
     if !self.passwordTextField.hidden {
       self.updatePasswordTextField()

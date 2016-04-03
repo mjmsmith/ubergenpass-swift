@@ -11,8 +11,8 @@ class PasswordGenerator {
   static let sharedGenerator = PasswordGenerator()
   
   private var tlds: NSMutableOrderedSet
-  private var masterPassword: String
-  private var secretPassword: String
+  private var masterPassword = ""
+  private var secretPassword = ""
   private var passwordHash: NSData?
   private var lowerCasePattern: NSRegularExpression
   private var upperCasePattern: NSRegularExpression
@@ -33,10 +33,11 @@ class PasswordGenerator {
 
     if let hashStr = Keychain.stringForKey(KeychainKey.Hash.rawValue) {
       self.passwordHash = NSData(base64EncodedString: hashStr, options: NSDataBase64DecodingOptions())
+      
+      if let passwordStr = Keychain.stringForKey(KeychainKey.Password.rawValue) {
+        self.setMasterPasswordForCurrentHash(passwordStr)
+      }
     }
-
-    self.masterPassword = ""
-    self.secretPassword = ""
   }
 
   func passwordForSite(site: String, length: Int, type: PasswordType) -> String? {
@@ -134,13 +135,24 @@ class PasswordGenerator {
     self.masterPassword = masterPassword
     self.secretPassword = secretPassword
     self.passwordHash = passwordHash
-
-    let secret = try! secretPassword.dataUsingEncoding(NSUTF8StringEncoding)!.AES256EncryptedDataUsingKey(masterPassword)
-
-    Keychain.setString(passwordHash.base64EncodedStringWithOptions(NSDataBase64EncodingOptions()), forKey: KeychainKey.Hash.rawValue)
-    Keychain.setString(secret.base64EncodedStringWithOptions(NSDataBase64EncodingOptions()), forKey: KeychainKey.Secret.rawValue)
+    
+    self.updateKeychain()
   }
 
+  func updateKeychain() {
+    let secret = try! self.secretPassword.dataUsingEncoding(NSUTF8StringEncoding)!.AES256EncryptedDataUsingKey(self.masterPassword)
+    
+    Keychain.setString(self.passwordHash!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions()), forKey: KeychainKey.Hash.rawValue)
+    Keychain.setString(secret.base64EncodedStringWithOptions(NSDataBase64EncodingOptions()), forKey: KeychainKey.Secret.rawValue)
+    
+    if NSUserDefaults.standardUserDefaults().boolForKey(UserDefaultsKey.SavePasswordEnabled.rawValue) {
+      Keychain.setString(self.masterPassword, forKey: KeychainKey.Password.rawValue)
+    }
+    else {
+      Keychain.removeStringForKey(KeychainKey.Password.rawValue)
+    }
+  }
+  
   func textMatchesHash(text: String) -> Bool {
     if let passwordHash = self.passwordHash {
       return passwordHash.isEqualToData(text.dataUsingEncoding(NSUTF8StringEncoding)!.SHA256Hash())

@@ -6,11 +6,13 @@ enum UserDefaultsKey: String {
   case PasswordLength
   case PasswordType
   case TouchIDEnabled
+  case SavePasswordEnabled
   case WelcomeShown
 }
 
 enum KeychainKey: String {
   case Hash
+  case Password
   case Secret
   case RecentSites
 }
