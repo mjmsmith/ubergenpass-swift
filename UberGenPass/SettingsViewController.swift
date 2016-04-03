@@ -138,11 +138,6 @@ class SettingsViewController: AppViewController {
     }
   }
   
-  @IBAction private func addSafariBookmarklet() {
-    UIPasteboard.generalPasteboard().string = "javascript:location.href='ubergenpass:'+location.href"
-    UIApplication.sharedApplication().openURL(NSURL(string: "http://camazotz.com/ubergenpass/bookmarklet")!)
-  }
-  
   @IBAction private func done() {
     self.masterPassword = self.passwordTextField.text!
     self.remembersRecentSites = self.recentSitesSwitch.on
