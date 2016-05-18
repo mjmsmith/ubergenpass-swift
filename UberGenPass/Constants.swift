@@ -5,8 +5,8 @@ enum UserDefaultsKey: String {
   case BackgroundTimeout
   case PasswordLength
   case PasswordType
-  case TouchIDEnabled
-  case SavePasswordEnabled
+  case TouchIDBackgroundEnabled
+  case TouchIDLaunchEnabled
   case WelcomeShown
 }
 

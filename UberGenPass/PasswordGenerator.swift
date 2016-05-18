@@ -145,7 +145,7 @@ class PasswordGenerator {
     Keychain.setString(self.passwordHash!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions()), forKey: KeychainKey.Hash.rawValue)
     Keychain.setString(secret.base64EncodedStringWithOptions(NSDataBase64EncodingOptions()), forKey: KeychainKey.Secret.rawValue)
     
-    if NSUserDefaults.standardUserDefaults().boolForKey(UserDefaultsKey.SavePasswordEnabled.rawValue) {
+    if NSUserDefaults.standardUserDefaults().boolForKey(UserDefaultsKey.TouchIDLaunchEnabled.rawValue) {
       Keychain.setString(self.masterPassword, forKey: KeychainKey.Password.rawValue)
     }
     else {

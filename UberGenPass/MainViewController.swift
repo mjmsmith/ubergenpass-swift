@@ -206,10 +206,10 @@ class MainViewController: AppViewController {
 
       let hasMasterPassword = PasswordGenerator.sharedGenerator.hasMasterPassword
       let hasTouchID = authContext.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: &authError)
-      let touchIDEnabled = NSUserDefaults.standardUserDefaults().boolForKey(UserDefaultsKey.TouchIDEnabled.rawValue)
+      let touchIDBackgroundEnabled = NSUserDefaults.standardUserDefaults().boolForKey(UserDefaultsKey.TouchIDBackgroundEnabled.rawValue)
       let settingsViewActive = self.presentedViewController is SettingsViewController
       
-      if hasMasterPassword && hasTouchID && touchIDEnabled && !settingsViewActive {
+      if hasMasterPassword && hasTouchID && touchIDBackgroundEnabled && !settingsViewActive {
         authContext.evaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics,
           localizedReason: NSLocalizedString(LocalizedString.Authenticate.rawValue, comment: ""),
           reply: { (success: Bool, error: NSError?) in
@@ -409,8 +409,8 @@ class MainViewController: AppViewController {
   private func configureSettingsViewController(settingsViewController: SettingsViewController) {
     settingsViewController.backgroundTimeout = NSUserDefaults.standardUserDefaults().integerForKey(UserDefaultsKey.BackgroundTimeout.rawValue)
     settingsViewController.remembersRecentSites = (self.recentSites != nil)
-    settingsViewController.touchIDEnabled = NSUserDefaults.standardUserDefaults().boolForKey(UserDefaultsKey.TouchIDEnabled.rawValue)
-    settingsViewController.savePasswordEnabled = NSUserDefaults.standardUserDefaults().boolForKey(UserDefaultsKey.SavePasswordEnabled.rawValue)
+    settingsViewController.touchIDBackgroundEnabled = NSUserDefaults.standardUserDefaults().boolForKey(UserDefaultsKey.TouchIDBackgroundEnabled.rawValue)
+    settingsViewController.touchIDLaunchEnabled = NSUserDefaults.standardUserDefaults().boolForKey(UserDefaultsKey.TouchIDLaunchEnabled.rawValue)
   }
   
   private func addToRecentSites() {
@@ -568,8 +568,8 @@ extension MainViewController: SettingsViewControllerDelegate {
       }
     }
     
-    NSUserDefaults.standardUserDefaults().setBool(settingsViewController.touchIDEnabled, forKey: UserDefaultsKey.TouchIDEnabled.rawValue)
-    NSUserDefaults.standardUserDefaults().setBool(settingsViewController.savePasswordEnabled, forKey: UserDefaultsKey.SavePasswordEnabled.rawValue)
+    NSUserDefaults.standardUserDefaults().setBool(settingsViewController.touchIDBackgroundEnabled, forKey: UserDefaultsKey.TouchIDBackgroundEnabled.rawValue)
+    NSUserDefaults.standardUserDefaults().setBool(settingsViewController.touchIDLaunchEnabled, forKey: UserDefaultsKey.TouchIDLaunchEnabled.rawValue)
     NSUserDefaults.standardUserDefaults().setInteger(settingsViewController.backgroundTimeout, forKey: UserDefaultsKey.BackgroundTimeout.rawValue)
     NSUserDefaults.standardUserDefaults().synchronize()
     

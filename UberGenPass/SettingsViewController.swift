@@ -16,8 +16,8 @@ class SettingsViewController: AppViewController {
   var canCancel = true
   var masterPassword = ""
   var remembersRecentSites = false
-  var touchIDEnabled = false
-  var savePasswordEnabled = false
+  var touchIDBackgroundEnabled = false
+  var touchIDLaunchEnabled = false
   var backgroundTimeout = 0
   weak var delegate: SettingsViewControllerDelegate?
 
@@ -27,8 +27,9 @@ class SettingsViewController: AppViewController {
   @IBOutlet private weak var statusImageView: StatusImageView!
   @IBOutlet private weak var changePasswordButton: UIButton!
   @IBOutlet private weak var recentSitesSwitch: UISwitch!
-  @IBOutlet private weak var touchIDSwitch: UISwitch!
-  @IBOutlet private weak var savePasswordSwitch: UISwitch!
+  @IBOutlet private weak var touchIDContainerView: UIView!
+  @IBOutlet private weak var touchIDBackgroundSwitch: UISwitch!
+  @IBOutlet private weak var touchIDLaunchSwitch: UISwitch!
   @IBOutlet private weak var timeoutSegment: UISegmentedControl!
   
   private var greyImage = UIImage(named: "GreyStatus")
@@ -49,18 +50,9 @@ class SettingsViewController: AppViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    var authError: NSError?
-    let hasTouchID = LAContext().canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: &authError)
-    
     self.cancelButtonItem.enabled = self.canCancel
     
     self.recentSitesSwitch.on = self.remembersRecentSites
-
-    self.touchIDSwitch.enabled = hasTouchID
-    self.touchIDSwitch.on = self.touchIDEnabled
-    
-    self.savePasswordSwitch.enabled = self.touchIDSwitch.on
-    self.savePasswordSwitch.on = self.savePasswordEnabled
     
     if self.backgroundTimeout == 60 {
       self.timeoutSegment.selectedSegmentIndex = 1
@@ -68,6 +60,13 @@ class SettingsViewController: AppViewController {
     else if self.backgroundTimeout == 300 {
       self.timeoutSegment.selectedSegmentIndex = 2
     }
+
+    var authError: NSError?
+    let hasTouchID = LAContext().canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: &authError)
+    
+    self.touchIDContainerView.hidden = !hasTouchID
+    self.touchIDBackgroundSwitch.on = self.touchIDBackgroundEnabled
+    self.touchIDLaunchSwitch.on = self.touchIDLaunchEnabled
     
     self.editingChanged(nil)
   }
@@ -121,11 +120,6 @@ class SettingsViewController: AppViewController {
     }
   }
   
-  @IBAction private func touchIDSwitchValueChanged(sender: UISwitch) {
-    self.savePasswordSwitch.enabled = self.touchIDSwitch.on
-    self.savePasswordSwitch.on = false
-  }
-  
   @IBAction private func tapGestureRecognized(recognizer: UITapGestureRecognizer) {
     self.view.endEditing(true)
   }
@@ -151,8 +145,8 @@ class SettingsViewController: AppViewController {
   @IBAction private func done() {
     self.masterPassword = self.passwordTextField.text!
     self.remembersRecentSites = self.recentSitesSwitch.on
-    self.touchIDEnabled = self.touchIDSwitch.on
-    self.savePasswordEnabled = self.savePasswordSwitch.on
+    self.touchIDBackgroundEnabled = self.touchIDBackgroundSwitch.on
+    self.touchIDLaunchEnabled = self.touchIDLaunchSwitch.on
     self.backgroundTimeout = [0, 60, 300][self.timeoutSegment.selectedSegmentIndex]
     
     self.delegate?.settingsViewControllerDidFinish(self)
