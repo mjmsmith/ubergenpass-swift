@@ -15,7 +15,6 @@ class MainViewController: AppViewController {
     case MatchingSitesTableViewCell
   }
   
-  @IBOutlet weak private var logoImageView: UIImageView!
   @IBOutlet weak private var siteTextField: UITextField!
   @IBOutlet weak private var passwordLengthStepper: UIStepper!
   @IBOutlet weak private var passwordTypeSegment: UISegmentedControl!
@@ -256,8 +255,6 @@ class MainViewController: AppViewController {
       hasDomain = true
     }
 
-    self.logoImageView.hidden = hasDomain
-    
     self.domainLabel.hidden = !hasDomain
     self.passwordTextField.hidden = !hasDomain
     self.passwordTapView.hidden = !hasDomain
