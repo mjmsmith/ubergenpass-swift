@@ -1,1 +1,6 @@
-"Authenticate" = "Authenticate with Touch ID.";
+"AppName" = "UberGenPass";
+"AuthenticateWithTouchID" = "Authenticate with Touch ID.";
+"AuthenticateOnLaunch" = "Authenticate On Launch";
+"AuthenticateOnLaunchMessage" = "To authenticate on launch with Touch ID, your master password must be stored in the Keychain.";
+"Cancel" = "Cancel";
+"OK" = "OK";

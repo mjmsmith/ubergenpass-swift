@@ -203,9 +203,6 @@
                                     <action selector="settings" destination="2" eventType="touchUpInside" id="W34-SF-y4p"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="top" image="Padlock" translatesAutoresizingMaskIntoConstraints="NO" id="ibB-vL-86l" userLabel="Image View - Background">
-                                <rect key="frame" x="180" y="196" width="240" height="240"/>
-                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Hs-N2-o2x" userLabel="View - Domain Popup">
                                 <rect key="frame" x="180" y="124" width="240" height="125"/>
                                 <subviews>
@@ -258,7 +255,6 @@
                             <constraint firstItem="0cx-uC-ixZ" firstAttribute="centerY" secondItem="LRc-2i-vlU" secondAttribute="centerY" id="1Mc-IH-Dq5"/>
                             <constraint firstItem="3SQ-CK-b1y" firstAttribute="bottom" secondItem="05y-Ke-SPJ" secondAttribute="bottom" id="9Xg-c5-tjJ"/>
                             <constraint firstItem="5Hs-N2-o2x" firstAttribute="top" secondItem="FBz-9R-IZS" secondAttribute="bottom" constant="14" id="ACN-8T-waA"/>
-                            <constraint firstItem="ibB-vL-86l" firstAttribute="centerY" secondItem="3" secondAttribute="centerY" constant="32" id="AiH-GK-Gc9"/>
                             <constraint firstItem="kOZ-kQ-wgN" firstAttribute="top" secondItem="FBz-9R-IZS" secondAttribute="bottom" constant="16" id="B6n-MU-1E8"/>
                             <constraint firstItem="05y-Ke-SPJ" firstAttribute="top" secondItem="3SQ-CK-b1y" secondAttribute="top" id="CHt-3Z-2dS"/>
                             <constraint firstItem="LRc-2i-vlU" firstAttribute="leading" secondItem="TT1-7X-NsD" secondAttribute="leading" id="GIo-aD-mrt"/>
@@ -277,7 +273,6 @@
                             <constraint firstItem="05y-Ke-SPJ" firstAttribute="leading" secondItem="3SQ-CK-b1y" secondAttribute="leading" id="XhA-Nu-rjI"/>
                             <constraint firstItem="kOZ-kQ-wgN" firstAttribute="centerX" secondItem="3" secondAttribute="centerX" id="Xmd-vC-CGS"/>
                             <constraint firstItem="bVv-5p-2mC" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" id="YX0-zk-o9V"/>
-                            <constraint firstItem="ibB-vL-86l" firstAttribute="centerX" secondItem="3" secondAttribute="centerX" id="aTK-6I-JNd"/>
                             <constraint firstItem="TT1-7X-NsD" firstAttribute="top" secondItem="3" secondAttribute="top" constant="298" id="bbw-zJ-1SI"/>
                             <constraint firstItem="WmF-lm-GqR" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="20" symbolic="YES" id="bk3-ha-z1W"/>
                             <constraint firstItem="3SQ-CK-b1y" firstAttribute="trailing" secondItem="05y-Ke-SPJ" secondAttribute="trailing" id="c1H-r7-3kA"/>
@@ -296,7 +291,6 @@
                             <constraint firstItem="bVv-5p-2mC" firstAttribute="leading" secondItem="3" secondAttribute="leading" id="q2Z-s8-ED0"/>
                             <constraint firstAttribute="trailing" secondItem="FBz-9R-IZS" secondAttribute="trailing" constant="16" id="rPG-Uz-g94"/>
                             <constraint firstItem="LRc-2i-vlU" firstAttribute="top" secondItem="3" secondAttribute="top" constant="242" id="rza-Jy-nVI"/>
-                            <constraint firstItem="ibB-vL-86l" firstAttribute="top" secondItem="05y-Ke-SPJ" secondAttribute="top" id="x99-3M-ovQ"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -305,7 +299,6 @@
                                 <exclude reference="Ufx-jl-h1P"/>
                                 <exclude reference="g4r-lU-ZNq"/>
                                 <exclude reference="19E-qb-FZd"/>
-                                <exclude reference="AiH-GK-Gc9"/>
                                 <exclude reference="rza-Jy-nVI"/>
                                 <exclude reference="bbw-zJ-1SI"/>
                             </mask>
@@ -321,7 +314,6 @@
                         <outlet property="checkmarkImageView" destination="0cx-uC-ixZ" id="dWS-v1-oYX"/>
                         <outlet property="clipboardButton" destination="LRc-2i-vlU" id="mcK-T3-48P"/>
                         <outlet property="domainLabel" destination="WmF-lm-GqR" id="TS0-OD-TUR"/>
-                        <outlet property="logoImageView" destination="ibB-vL-86l" id="s92-Z8-l7X"/>
                         <outlet property="matchingSitesTableView" destination="QSM-b0-eRh" id="hzs-TO-Hrv"/>
                         <outlet property="matchingSitesView" destination="5Hs-N2-o2x" id="Tj8-Sw-SPE"/>
                         <outlet property="matchingSitesViewHeightConstraint" destination="z1t-gm-m2Q" id="eN1-x7-dXS"/>
@@ -540,6 +532,9 @@
                                     <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="6sQ-LZ-dWe" userLabel="Switch - On Launch">
                                         <rect key="frame" x="211" y="30" width="51" height="31"/>
                                         <color key="onTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="valueChanged:" destination="6" eventType="valueChanged" id="NLl-CD-FP8"/>
+                                        </connections>
                                     </switch>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="From Background" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ubx-H7-1Vg">
                                         <rect key="frame" x="12" y="68" width="136" height="22"/>

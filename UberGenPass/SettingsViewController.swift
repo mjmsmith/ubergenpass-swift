@@ -120,6 +120,25 @@ class SettingsViewController: AppViewController {
     }
   }
   
+  @IBAction private func valueChanged(sender: UISwitch) {
+    guard sender == self.touchIDLaunchSwitch && sender.on else {
+      return
+    }
+    
+    let alertController = UIAlertController.init(title: String(LocalizedString.AuthenticateOnLaunch),
+                                                 message: String(LocalizedString.AuthenticateOnLaunchMessage),
+                                                 preferredStyle: .Alert)
+    
+    alertController.addAction(UIAlertAction(title: String(LocalizedString.OK), style: .Default) { action in
+    })
+    
+    alertController.addAction(UIAlertAction(title: String(LocalizedString.Cancel), style: .Cancel) { action in
+      sender.on = false
+    })
+
+    self.presentViewController(alertController, animated: true, completion: nil)
+  }
+
   @IBAction private func tapGestureRecognized(recognizer: UITapGestureRecognizer) {
     self.view.endEditing(true)
   }

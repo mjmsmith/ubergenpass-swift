@@ -18,5 +18,15 @@ enum KeychainKey: String {
 }
 
 enum LocalizedString: String {
-  case Authenticate
+  case AuthenticateWithTouchID
+  case AuthenticateOnLaunch
+  case AuthenticateOnLaunchMessage
+  case Cancel
+  case OK
+}
+
+extension String {
+  init(_ key: LocalizedString) {
+    self = NSLocalizedString(key.rawValue, comment: "")
+  }
 }

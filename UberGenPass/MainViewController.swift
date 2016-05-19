@@ -159,7 +159,7 @@ class MainViewController: AppViewController {
         self.addBlurView()
 
         LAContext().evaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics,
-                                   localizedReason: NSLocalizedString(LocalizedString.Authenticate.rawValue, comment: ""),
+                                   localizedReason: String(LocalizedString.AuthenticateWithTouchID),
                                    reply: { (success: Bool, error: NSError?) in
                                     dispatch_async(dispatch_get_main_queue(), {
                                       if success {
@@ -210,7 +210,7 @@ class MainViewController: AppViewController {
       
       if hasMasterPassword && hasTouchID && touchIDBackgroundEnabled && !settingsViewActive {
         authContext.evaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics,
-          localizedReason: NSLocalizedString(LocalizedString.Authenticate.rawValue, comment: ""),
+          localizedReason: String(LocalizedString.AuthenticateWithTouchID),
           reply: { (success: Bool, error: NSError?) in
             dispatch_async(dispatch_get_main_queue(), {
               if success {
