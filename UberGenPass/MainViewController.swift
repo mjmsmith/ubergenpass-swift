@@ -150,8 +150,7 @@ class MainViewController: AppViewController {
     if PasswordGenerator.sharedGenerator.hasMasterPassword {
       if self.viewHasAppeared {
         self.removeBlurView()
-        
-        if self.siteTextField.text ?? "" == "" {
+        if self.siteTextField.isEmpty {
           self.siteTextField.becomeFirstResponder()
         }
       }
@@ -160,20 +159,19 @@ class MainViewController: AppViewController {
 
         LAContext().evaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics,
                                    localizedReason: String(LocalizedString.AuthenticateWithTouchID),
-                                   reply: { (success: Bool, error: NSError?) in
-                                    dispatch_async(dispatch_get_main_queue(), {
-                                      if success {
-                                        self.removeBlurView()
-                                        
-                                        if self.siteTextField.text ?? "" == "" {
-                                          self.siteTextField.becomeFirstResponder()
-                                        }
-                                      }
-                                      else {
-                                        self.forceSettings()
-                                      }
-                                    })
-        })
+                                   reply: { success, error in
+                                     dispatch_async(dispatch_get_main_queue(), {
+                                       if success {
+                                         self.removeBlurView()
+                                         if self.siteTextField.isEmpty {
+                                           self.siteTextField.becomeFirstResponder()
+                                         }
+                                       }
+                                       else {
+                                         self.forceSettings()
+                                       }
+                                     })
+                                   })
       }
     }
     else {
@@ -211,7 +209,7 @@ class MainViewController: AppViewController {
       if hasMasterPassword && hasTouchID && touchIDBackgroundEnabled && !settingsViewActive {
         authContext.evaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics,
           localizedReason: String(LocalizedString.AuthenticateWithTouchID),
-          reply: { (success: Bool, error: NSError?) in
+          reply: { success, error in
             dispatch_async(dispatch_get_main_queue(), {
               if success {
                 self.updateClipboardCheckmark()
@@ -221,7 +219,7 @@ class MainViewController: AppViewController {
                 self.forceSettings()
               }
             })
-        })
+          })
       }
       else {
         self.forceSettings()

@@ -30,6 +30,7 @@
 		4D8DE7651B72D20300DFFA18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D8DE7641B72D20300DFFA18 /* Assets.xcassets */; };
 		4D8DE7681B72D20300DFFA18 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D8DE7661B72D20300DFFA18 /* LaunchScreen.storyboard */; };
 		4D8DE77E1B72D20300DFFA18 /* UberGenPassUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8DE77D1B72D20300DFFA18 /* UberGenPassUITests.swift */; };
+		4D9550621CEF67ED00D5A997 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9550611CEF67ED00D5A997 /* UITextField.swift */; };
 		4DAB216A1B75142D000A68F0 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAB21691B75142D000A68F0 /* MainViewController.swift */; };
 		4DAB216C1B757117000A68F0 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAB216B1B757117000A68F0 /* AboutViewController.swift */; };
 		4DAB216E1B757591000A68F0 /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAB216D1B757591000A68F0 /* HelpViewController.swift */; };
@@ -91,6 +92,7 @@
 		4D8DE7791B72D20300DFFA18 /* UberGenPassUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UberGenPassUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D8DE77D1B72D20300DFFA18 /* UberGenPassUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UberGenPassUITests.swift; sourceTree = "<group>"; };
 		4D8DE77F1B72D20300DFFA18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4D9550611CEF67ED00D5A997 /* UITextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
 		4DAB21691B75142D000A68F0 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		4DAB216B1B757117000A68F0 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		4DAB216D1B757591000A68F0 /* HelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				4D26F5E91B7405E400CCEE62 /* NSData+CommonCrypto.m */,
+				4D9550611CEF67ED00D5A997 /* UITextField.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -541,6 +544,7 @@
 				4D26F5EA1B7405E400CCEE62 /* NSData+CommonCrypto.m in Sources */,
 				4DAB216E1B757591000A68F0 /* HelpViewController.swift in Sources */,
 				4D8DE75E1B72D20300DFFA18 /* AppDelegate.swift in Sources */,
+				4D9550621CEF67ED00D5A997 /* UITextField.swift in Sources */,
 				4DB56FC41B72D2A900FBD858 /* PasswordGenerator.swift in Sources */,
 				4D7D31531B7A373F00AB54CF /* LabelStepper.swift in Sources */,
 				4DAB216C1B757117000A68F0 /* AboutViewController.swift in Sources */,
