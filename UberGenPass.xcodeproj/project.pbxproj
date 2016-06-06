@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		08E24322738270FD87413BA4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 458D046EA2A461F316B338AE /* libPods.a */; };
-		2F70264A2EFBC53AD305FA5D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 458D046EA2A461F316B338AE /* libPods.a */; };
 		4D26F5EA1B7405E400CCEE62 /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D26F5E91B7405E400CCEE62 /* NSData+CommonCrypto.m */; };
 		4D26F5ED1B7407F300CCEE62 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D26F5EC1B7407F300CCEE62 /* Constants.swift */; };
 		4D56C0971B74568500E76B4E /* GreenStatus.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D56C08F1B74568500E76B4E /* GreenStatus.png */; };
@@ -41,6 +39,7 @@
 		4DB91D3A1B730D9F00FCC77E /* KeychainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB91D391B730D9F00FCC77E /* KeychainTests.swift */; };
 		4DDCD18E1B72EE8100F3B81E /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDCD18D1B72EE8100F3B81E /* Keychain.swift */; };
 		4DE172D11B7ADEA800162A42 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4DE172CF1B7ADEA800162A42 /* Localizable.strings */; };
+		F6F065F27ED2F67599FC2208 /* libPods-UberGenPass.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41689111EE3951C593BE3D40 /* libPods-UberGenPass.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,8 +60,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		29A94C30C1CFEED4FC4188CB /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		458D046EA2A461F316B338AE /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		177F7A805F1165DB7EE7FFF0 /* Pods-UberGenPass.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UberGenPass.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UberGenPass/Pods-UberGenPass.debug.xcconfig"; sourceTree = "<group>"; };
+		41689111EE3951C593BE3D40 /* libPods-UberGenPass.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-UberGenPass.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D26F5E71B7405E400CCEE62 /* UberGenPass-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UberGenPass-Bridging-Header.h"; sourceTree = "<group>"; };
 		4D26F5E81B7405E400CCEE62 /* NSData+CommonCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+CommonCrypto.h"; sourceTree = "<group>"; };
 		4D26F5E91B7405E400CCEE62 /* NSData+CommonCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+CommonCrypto.m"; sourceTree = "<group>"; };
@@ -103,7 +102,7 @@
 		4DB91D391B730D9F00FCC77E /* KeychainTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeychainTests.swift; path = UberGenPassTests/KeychainTests.swift; sourceTree = SOURCE_ROOT; };
 		4DDCD18D1B72EE8100F3B81E /* Keychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		4DE172D01B7ADEA800162A42 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
-		AA4D60FC0A191A4733DAC4FF /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		A0164C6FAC8B4124D3BD47AD /* Pods-UberGenPass.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UberGenPass.release.xcconfig"; path = "Pods/Target Support Files/Pods-UberGenPass/Pods-UberGenPass.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,7 +110,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				08E24322738270FD87413BA4 /* libPods.a in Frameworks */,
+				F6F065F27ED2F67599FC2208 /* libPods-UberGenPass.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,7 +118,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2F70264A2EFBC53AD305FA5D /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -133,13 +131,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0F28D862ADA9D5854664AA44 /* Pods */ = {
+		106643FB0F364F5A1F507FC0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				AA4D60FC0A191A4733DAC4FF /* Pods.debug.xcconfig */,
-				29A94C30C1CFEED4FC4188CB /* Pods.release.xcconfig */,
+				41689111EE3951C593BE3D40 /* libPods-UberGenPass.a */,
 			);
-			name = Pods;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		4D26F5EB1B74061200CCEE62 /* Headers */ = {
@@ -189,8 +186,8 @@
 				4D8DE7711B72D20300DFFA18 /* UberGenPassTests */,
 				4D8DE77C1B72D20300DFFA18 /* UberGenPassUITests */,
 				4D8DE75B1B72D20300DFFA18 /* Products */,
-				0F28D862ADA9D5854664AA44 /* Pods */,
-				ED7172B2BD903F29A7E1C68C /* Frameworks */,
+				BD3D59A3664669679F9CD4BC /* Pods */,
+				106643FB0F364F5A1F507FC0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -270,12 +267,13 @@
 			name = Utilities;
 			sourceTree = "<group>";
 		};
-		ED7172B2BD903F29A7E1C68C /* Frameworks */ = {
+		BD3D59A3664669679F9CD4BC /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				458D046EA2A461F316B338AE /* libPods.a */,
+				177F7A805F1165DB7EE7FFF0 /* Pods-UberGenPass.debug.xcconfig */,
+				A0164C6FAC8B4124D3BD47AD /* Pods-UberGenPass.release.xcconfig */,
 			);
-			name = Frameworks;
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -285,13 +283,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4D8DE7821B72D20300DFFA18 /* Build configuration list for PBXNativeTarget "UberGenPass" */;
 			buildPhases = (
-				C83330DD971262331885AB98 /* Check Pods Manifest.lock */,
+				ADD89978EA9D0F4ED9BB0511 /* [CP] Check Pods Manifest.lock */,
 				4D8DE7561B72D20300DFFA18 /* Sources */,
 				4D8DE7571B72D20300DFFA18 /* Frameworks */,
 				4D8DE7581B72D20300DFFA18 /* Resources */,
-				2B58277BFE65F13EFA618832 /* Copy Pods Resources */,
 				4DAF03EE1B7D6BF500831625 /* Crashlytics */,
-				84CCBDED1B41879149582A98 /* Embed Pods Frameworks */,
+				D88A6ADCC50F060F5D5371B7 /* [CP] Embed Pods Frameworks */,
+				56E3F246351CA3DBE8675F17 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -306,12 +304,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4D8DE7851B72D20300DFFA18 /* Build configuration list for PBXNativeTarget "UberGenPassTests" */;
 			buildPhases = (
-				5D0DDDB7DE70E5A06EFBE52F /* Check Pods Manifest.lock */,
 				4D8DE76A1B72D20300DFFA18 /* Sources */,
 				4D8DE76B1B72D20300DFFA18 /* Frameworks */,
 				4D8DE76C1B72D20300DFFA18 /* Resources */,
-				230A7758EB5360EE11D35701 /* Copy Pods Resources */,
-				2FF59B3C63A1BF196C3BBF1B /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -424,51 +419,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		230A7758EB5360EE11D35701 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		2B58277BFE65F13EFA618832 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		2FF59B3C63A1BF196C3BBF1B /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		4DAF03EE1B7D6BF500831625 /* Crashlytics */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -483,14 +433,29 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" cc4730021c88fb878d67475c54ab44abdea2dd8e ${FABRIC_BUILD_SECRET}";
 		};
-		5D0DDDB7DE70E5A06EFBE52F /* Check Pods Manifest.lock */ = {
+		56E3F246351CA3DBE8675F17 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UberGenPass/Pods-UberGenPass-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		ADD89978EA9D0F4ED9BB0511 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -498,34 +463,19 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		84CCBDED1B41879149582A98 /* Embed Pods Frameworks */ = {
+		D88A6ADCC50F060F5D5371B7 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C83330DD971262331885AB98 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UberGenPass/Pods-UberGenPass-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -739,7 +689,7 @@
 		};
 		4D8DE7831B72D20300DFFA18 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AA4D60FC0A191A4733DAC4FF /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 177F7A805F1165DB7EE7FFF0 /* Pods-UberGenPass.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -757,7 +707,7 @@
 		};
 		4D8DE7841B72D20300DFFA18 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 29A94C30C1CFEED4FC4188CB /* Pods.release.xcconfig */;
+			baseConfigurationReference = A0164C6FAC8B4124D3BD47AD /* Pods-UberGenPass.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -774,7 +724,6 @@
 		};
 		4D8DE7861B72D20300DFFA18 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AA4D60FC0A191A4733DAC4FF /* Pods.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = UberGenPassTests/Info.plist;
@@ -787,7 +736,6 @@
 		};
 		4D8DE7871B72D20300DFFA18 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 29A94C30C1CFEED4FC4188CB /* Pods.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = UberGenPassTests/Info.plist;
