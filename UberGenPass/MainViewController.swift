@@ -18,7 +18,7 @@ class MainViewController: AppViewController {
 
   private var blurView: UIView?
   private var inactiveDate: Date?
-  private var recentSites: NSMutableOrderedSet?
+  private var recentSites: [String]?
   private var matchingSites: [String]?
 
   deinit {
@@ -39,18 +39,9 @@ class MainViewController: AppViewController {
     
     // Recent sites.
     
-    if let str = DefaultKeychain[.RecentSites] {
-      let data = str.data(using: .utf8) ?? Data()
-      
-      do {
-        let recentSites = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions())
-
-        self.recentSites = NSMutableOrderedSet(array: recentSites as! [String])
-      }
-      catch _ as NSError {
-        self.recentSites = NSMutableOrderedSet()
-      }
-
+    if let string = DefaultKeychain[.RecentSites] {
+      self.recentSites = (try? JSONSerialization.jsonObject(with: string.data(using: .utf8) ?? Data(),
+                                                            options: JSONSerialization.ReadingOptions())) as? [String] ?? []
       self.matchingSites = []
     }
 
@@ -233,10 +224,10 @@ class MainViewController: AppViewController {
     
     self.updateClipboardCheckmark()
     
-    if let _ = self.recentSites {
+    if self.recentSites != nil {
       self.matchingSites = self.recentSitesMatchingText(text: (self.siteTextField.text ?? "").lowercased())
       
-      if self.matchingSites!.count == 0 {
+      if self.matchingSites?.isEmpty ?? true {
         self.matchingSitesView.isHidden = true
       }
       else {
@@ -382,24 +373,27 @@ class MainViewController: AppViewController {
   }
   
   private func addToRecentSites() {
-    if let site = PasswordGenerator.sharedGenerator.domainFromSite(self.siteTextField.text ?? "") {
-      // Ignore this site if it's already the most recent one.
-  
-      if site == self.recentSites!.lastObject as? String {
+    guard let site = PasswordGenerator.sharedGenerator.domainFromSite(self.siteTextField.text ?? "") else {
+      return
+    }
+
+    if let recentCount = self.recentSites?.count,
+       let index = self.recentSites?.firstIndex(of: site) {
+      // Ignore this site if it's already the most recent one, otherwise remove it to be re-added.
+
+      if index == recentCount - 1 {
         return
       }
-  
-      // Append the site to the end of the ordered set.
-  
-      self.recentSites!.remove(site)
-  
-      if self.recentSites!.count >= Constants.MaxRecentSites {
-        self.recentSites!.removeObject(at: 0)
-      }
-  
-      self.recentSites!.add(site)
-      self.saveRecentSites()
+
+      self.recentSites?.remove(at: index)
     }
+
+    if self.recentSites?.count ?? 0 >= Constants.MaxRecentSites {
+      self.recentSites?.removeFirst()
+    }
+  
+    self.recentSites?.append(site)
+    self.saveRecentSites()
   }
 
   private func recentSitesMatchingText(text: String) -> [String] {
@@ -410,8 +404,7 @@ class MainViewController: AppViewController {
       return prefixSites
     }
   
-    for site in self.recentSites! {
-      let site = site as! String
+    for site in self.recentSites ?? [] {
       let range = site.range(of: text)
   
       if range?.lowerBound == site.startIndex {
@@ -426,13 +419,17 @@ class MainViewController: AppViewController {
   }
   
   private func saveRecentSites() {
-    let data = try! JSONSerialization.data(withJSONObject: self.recentSites!.array, options: JSONSerialization.WritingOptions())
+    guard let recentSites = self.recentSites,
+          let data = try? JSONSerialization.data(withJSONObject: recentSites, options: JSONSerialization.WritingOptions()),
+          let string = String(data: data, encoding: .utf8) else {
+      return
+    }
     
-    DefaultKeychain[.RecentSites] = String(data: data, encoding: .utf8)!
+    DefaultKeychain[.RecentSites] = string
   }
   
   private func sizeAndShowMatchingSitesView() {
-    self.matchingSitesViewHeightConstraint.constant = CGFloat(min(self.matchingSites!.count, 5)) * self.matchingSitesTableView.rowHeight
+    self.matchingSitesViewHeightConstraint.constant = CGFloat(min(self.matchingSites?.count ?? 0, 5)) * self.matchingSitesTableView.rowHeight
     self.matchingSitesView.isHidden = false
   }
   
@@ -457,7 +454,7 @@ extension MainViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = self.matchingSitesTableView.dequeueReusableCell(withIdentifier: Constants.MatchingSitesTableViewCellIdentifier)!
     
-    cell.textLabel!.text = self.matchingSites![indexPath.row]
+    cell.textLabel?.text = self.matchingSites?[indexPath.row]
     
     return cell
   }
@@ -468,7 +465,7 @@ extension MainViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
 
-    self.siteTextField.text = self.matchingSites![indexPath.row]
+    self.siteTextField.text = self.matchingSites?[indexPath.row] ?? ""
     self.siteTextField.resignFirstResponder()
     
     self.editingChanged()
@@ -480,17 +477,13 @@ extension MainViewController: UITableViewDelegate {
 extension MainViewController: UITextFieldDelegate {
   
   func textFieldDidBeginEditing(_ textField: UITextField) {
-    if let _ = self.recentSites {
-      if self.matchingSites!.count > 0 {
-        self.sizeAndShowMatchingSitesView()
-      }
+    if self.matchingSites?.count ?? 0 > 0 {
+      self.sizeAndShowMatchingSitesView()
     }
   }
   
   func textFieldDidEndEditing(_ textField: UITextField) {
-    if let _ = self.recentSites {
-      self.matchingSitesView.isHidden = true
-    }
+    self.matchingSitesView.isHidden = true
   }
   
   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -520,7 +513,7 @@ extension MainViewController: SettingsViewControllerDelegate {
     
     if settingsViewController.remembersRecentSites {
       if self.recentSites == nil {
-        self.recentSites = NSMutableOrderedSet()
+        self.recentSites = []
         self.matchingSites = []
         
         self.saveRecentSites()
