@@ -20,15 +20,15 @@ class KeychainTests: XCTestCase {
   }
   
   func testKeychain() {
-    XCTAssertNil(Keychain.stringForKey("foo"))
+    XCTAssertNil(DefaultKeychain["foo"])
     
-    Keychain.setString("bar", forKey: "foo")
-    XCTAssertEqual(Keychain.stringForKey("foo"), "bar")
+    DefaultKeychain["foo"] = "bar"
+    XCTAssertEqual(DefaultKeychain["foo"], "bar")
     
-    Keychain.setString("baz", forKey: "foo")
-    XCTAssertEqual(Keychain.stringForKey("foo"), "baz")
+    DefaultKeychain["foo"] = "baz"
+    XCTAssertEqual(DefaultKeychain["foo"], "baz")
     
-    Keychain.removeStringForKey("foo")
-    XCTAssertNil(Keychain.stringForKey("foo"))
+    DefaultKeychain["foo"] = nil
+    XCTAssertNil(DefaultKeychain["foo"])
   }
 }

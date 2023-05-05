@@ -1,4 +1,5 @@
 import UIKit
+import KeychainAccess
 
 struct Constants {
   // User defaults.
@@ -10,12 +11,6 @@ struct Constants {
   static let TouchIDEnabledDefaultsKey = "TouchIDEnabled"
   static let WelcomeShownDefaultsKey = "WelcomeShown"
   
-  // Keychain.
-
-  static let PasswordHashKeychainKey = "Hash"
-  static let PasswordSecretKeychainKey = "Secret"
-  static let RecentSitesKeychainKey = "RecentSites"
-
   // Segues.
   
   static let AboutSegueIdentifier = "About"
@@ -35,3 +30,23 @@ struct Constants {
   
   static let MaxRecentSites = 50
 }
+
+public enum KeychainKeys: String {
+  case Hash
+  case Secret
+  case RecentSites
+}
+
+extension Keychain {
+  public subscript(key: KeychainKeys) -> String? {
+    get {
+      return self[key.rawValue]
+    }
+
+    set {
+      self[key.rawValue] = newValue
+    }
+  }
+}
+
+public var DefaultKeychain = Keychain()

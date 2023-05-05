@@ -1,13 +1,22 @@
 import UIKit
 
-protocol PasswordsViewControllerDelegate: class {
+protocol PasswordsViewControllerDelegate: AnyObject {
   func passwordsViewControllerDidFinish(passwordsViewController: PasswordsViewController)
   func passwordsViewControllerDidCancel(passwordsViewController: PasswordsViewController)
 }
 
 class PasswordsViewController: AppViewController {
   weak var delegate: PasswordsViewControllerDelegate?
-  var canCancel = false
+  var canCancel = true {
+    didSet {
+      if let cancelButtonItem = self.cancelButtonItem {
+        cancelButtonItem.isEnabled = canCancel
+      }
+      if #available(iOS 13, *) {
+        self.isModalInPresentation = !canCancel
+      }
+    }
+  }
   var masterPassword = ""
   var secretPassword = ""
   
@@ -34,27 +43,27 @@ class PasswordsViewController: AppViewController {
     self.lowerSecretTextField.text = nil
     
     self.upperMasterTextField.becomeFirstResponder()
-    self.editingChanged(nil)
+    self.editingChanged(sender: nil)
   }
 
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    self.cancelButtonItem.enabled = self.canCancel
-    
-    if NSUserDefaults.standardUserDefaults().boolForKey(Constants.WelcomeShownDefaultsKey) {
+    self.cancelButtonItem.isEnabled = self.canCancel
+
+    if UserDefaults.standard.bool(forKey: Constants.WelcomeShownDefaultsKey) {
       self.welcomeImageView.removeFromSuperview()
       self.upperMasterTextField.becomeFirstResponder()
     }
     else {
-      NSUserDefaults.standardUserDefaults().setBool(true, forKey: Constants.WelcomeShownDefaultsKey)
+      UserDefaults.standard.set(true, forKey: Constants.WelcomeShownDefaultsKey)
     }
     
-    self.editingChanged(nil)
+    self.editingChanged(sender: nil)
   }
 
-  override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-    return .Portrait
+  override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+    return .portrait
   }
 
   // MARK: Actions
@@ -101,16 +110,16 @@ class PasswordsViewController: AppViewController {
       }
       
       self.secretStatusImageView.image = secretStatusImage
-      self.secretStatusImageView.hidden = false
+      self.secretStatusImageView.isHidden = false
     }
     else {
-      self.secretStatusImageView.hidden = true
+      self.secretStatusImageView.isHidden = true
       isSecretDone = true
     }
     
     // Done button.
     
-    self.doneButtonItem.enabled = isMasterDone && isSecretDone
+    self.doneButtonItem.isEnabled = isMasterDone && isSecretDone
     
     // Animate status images if done.
     
@@ -130,8 +139,8 @@ class PasswordsViewController: AppViewController {
   }
   
   @IBAction private func help() {
-    self.performSegueWithIdentifier(Constants.HelpSegueIdentifier) { (segue) in
-      let helpViewController = segue.destinationViewController as! HelpViewController
+    self.performSegue(withIdentifier: Constants.HelpSegueIdentifier) { segue in
+      let helpViewController = segue.destination as! HelpViewController
       
       helpViewController.documentName = "PasswordsHelp"
       helpViewController.delegate = self
@@ -142,17 +151,17 @@ class PasswordsViewController: AppViewController {
     self.masterPassword = self.upperMasterTextField.text!
     self.secretPassword = self.upperSecretTextField.text ?? ""
 
-    self.delegate?.passwordsViewControllerDidFinish(self)
+    self.delegate?.passwordsViewControllerDidFinish(passwordsViewController: self)
   }
   
   @IBAction private func cancel() {
-    self.delegate?.passwordsViewControllerDidCancel(self)
+    self.delegate?.passwordsViewControllerDidCancel(passwordsViewController: self)
   }
 }
 
 extension PasswordsViewController: UITextFieldDelegate {
   
-  func textFieldShouldReturn(textField: UITextField) -> Bool {
+  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
     switch textField {
       case self.upperMasterTextField:
         self.lowerMasterTextField.becomeFirstResponder()
@@ -173,7 +182,7 @@ extension PasswordsViewController: UITextFieldDelegate {
 extension PasswordsViewController: HelpViewControllerDelegate {
   
   func helpViewControllerDidFinish(helpViewController: HelpViewController) {
-    self.dismissViewControllerAnimated(true, completion: nil)
+    self.dismiss(animated: true, completion: nil)
   }
 }
 

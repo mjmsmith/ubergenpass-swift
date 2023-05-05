@@ -4,7 +4,7 @@ import UIKit
 class MainViewController: AppViewController {
   @IBOutlet weak private var logoImageView: UIImageView!
   @IBOutlet weak private var siteTextField: UITextField!
-  @IBOutlet weak private var passwordLengthStepper: UIStepper!
+  @IBOutlet weak private var passwordLengthStepper: LabelStepper!
   @IBOutlet weak private var passwordTypeSegment: UISegmentedControl!
   @IBOutlet weak private var domainLabel: UILabel!
   @IBOutlet weak private var passwordTextField: UITextField!
@@ -17,12 +17,12 @@ class MainViewController: AppViewController {
   @IBOutlet weak private var matchingSitesViewHeightConstraint: NSLayoutConstraint!
 
   private var blurView: UIView?
-  private var inactiveDate: NSDate?
+  private var inactiveDate: Date?
   private var recentSites: NSMutableOrderedSet?
   private var matchingSites: [String]?
 
   deinit {
-    NSNotificationCenter.defaultCenter().removeObserver(self)
+    NotificationCenter.default.removeObserver(self)
   }
   
   var site = "" {
@@ -39,11 +39,11 @@ class MainViewController: AppViewController {
     
     // Recent sites.
     
-    if let str = Keychain.stringForKey(Constants.RecentSitesKeychainKey) {
-      let data = str.dataUsingEncoding(NSUTF8StringEncoding) ?? NSData()
+    if let str = DefaultKeychain[.RecentSites] {
+      let data = str.data(using: .utf8) ?? Data()
       
       do {
-        let recentSites = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions())
+        let recentSites = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions())
 
         self.recentSites = NSMutableOrderedSet(array: recentSites as! [String])
       }
@@ -62,11 +62,12 @@ class MainViewController: AppViewController {
     
     self.passwordLengthStepper.minimumValue = 4
     self.passwordLengthStepper.maximumValue = 24
-    self.passwordLengthStepper.value = Double(NSUserDefaults.standardUserDefaults().integerForKey(Constants.PasswordLengthDefaultsKey))
-    
+    self.passwordLengthStepper.value = Double(UserDefaults.standard.integer(forKey: Constants.PasswordLengthDefaultsKey))
+    self.passwordLengthStepper.updateLabel()
+
     // Password type.
     
-    if NSUserDefaults.standardUserDefaults().stringForKey(Constants.PasswordTypeDefaultsKey) == PasswordType.SHA512.rawValue {
+    if UserDefaults.standard.string(forKey: Constants.PasswordTypeDefaultsKey) == PasswordType.SHA512.rawValue {
       self.passwordTypeSegment.selectedSegmentIndex = 1
     }
     else {
@@ -75,7 +76,7 @@ class MainViewController: AppViewController {
     
     // Password text field.  We can't set the height in IB if the style is a rounded rect.
     
-    self.passwordTextField.borderStyle = .RoundedRect
+    self.passwordTextField.borderStyle = .roundedRect
     
     // Password buttons.
     
@@ -84,7 +85,7 @@ class MainViewController: AppViewController {
 
     // Matching sites popup.
     
-    self.matchingSitesView.layer.shadowColor = UIColor.blackColor().CGColor
+    self.matchingSitesView.layer.shadowColor = UIColor.black.cgColor
     self.matchingSitesView.layer.shadowOpacity = 0.5
     self.matchingSitesView.layer.shadowOffset = CGSizeMake(0, 2)
     self.matchingSitesView.layer.shadowRadius = 4
@@ -96,13 +97,13 @@ class MainViewController: AppViewController {
 
     // Controls hidden until we have a site.
 
-    self.domainLabel.hidden = true
-    self.passwordTextField.hidden = true
-    self.passwordTapView.hidden = true
-    self.clipboardButton.hidden = true
-    self.safariButton.hidden = true
-    self.checkmarkImageView.hidden = true
-    self.matchingSitesView.hidden = true
+    self.domainLabel.isHidden = true
+    self.passwordTextField.isHidden = true
+    self.passwordTapView.isHidden = true
+    self.clipboardButton.isHidden = true
+    self.safariButton.isHidden = true
+    self.checkmarkImageView.isHidden = true
+    self.matchingSitesView.isHidden = true
     
     // If we're ready to generate passwords, update the UI as usual.
     
@@ -115,23 +116,23 @@ class MainViewController: AppViewController {
     
     // Notifications.
     
-    NSNotificationCenter.defaultCenter().addObserver(self,
-      selector: Selector("applicationDidEnterBackground:"),
-      name: UIApplicationDidEnterBackgroundNotification,
+    NotificationCenter.default.addObserver(self,
+                                           selector: #selector(applicationDidEnterBackground),
+                                           name: UIApplication.didEnterBackgroundNotification,
       object: nil)
 
-    NSNotificationCenter.defaultCenter().addObserver(self,
-      selector: Selector("applicationWillEnterForeground:"),
-      name: UIApplicationWillEnterForegroundNotification,
+    NotificationCenter.default.addObserver(self,
+                                           selector: #selector(applicationWillEnterForeground),
+                                           name: UIApplication.willEnterForegroundNotification,
       object: nil)
 
-    NSNotificationCenter.defaultCenter().addObserver(self,
-      selector: Selector("pasteboardChanged:"),
-      name: UIPasteboardChangedNotification,
-      object: UIPasteboard.generalPasteboard())
+    NotificationCenter.default.addObserver(self,
+                                           selector: #selector(pasteboardChanged),
+                                           name: UIPasteboard.changedNotification,
+                                           object: UIPasteboard.general)
   }
   
-  override func viewDidAppear(animated: Bool) {
+  override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
 
     // If we have no master password, force a segue to Settings (only happens on startup).
@@ -149,20 +150,20 @@ class MainViewController: AppViewController {
     }
   }
 
-  override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-    return .Portrait
+  override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+    return .portrait
   }
   
   // MARK: Notifications
   
-  func applicationWillEnterForeground(notification: NSNotification) {
+  @objc func applicationWillEnterForeground(notification: NSNotification) {
     guard let inactiveDate = self.inactiveDate else { return }
     
-    let elapsed = fabs(NSDate().timeIntervalSinceDate(inactiveDate))
+    let elapsed = fabs(Date().timeIntervalSince(inactiveDate))
     
     // Has the background timeout elapsed?
     
-    if elapsed > Double(NSUserDefaults.standardUserDefaults().integerForKey(Constants.BackgroundTimeoutDefaultsKey)) {
+    if elapsed > Double(UserDefaults.standard.integer(forKey: Constants.BackgroundTimeoutDefaultsKey)) {
       var authError: NSError?
       let authContext = LAContext()
       
@@ -170,15 +171,15 @@ class MainViewController: AppViewController {
       // force transition to the Settings view.
 
       let hasMasterPassword = PasswordGenerator.sharedGenerator.hasMasterPassword
-      let hasTouchID = authContext.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: &authError)
-      let touchIDEnabled = NSUserDefaults.standardUserDefaults().boolForKey(Constants.TouchIDEnabledDefaultsKey)
+      let hasTouchID = authContext.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: &authError)
+      let touchIDEnabled = UserDefaults.standard.bool(forKey: Constants.TouchIDEnabledDefaultsKey)
       let settingsViewActive = self.presentedViewController is SettingsViewController
-      
+
       if hasMasterPassword && hasTouchID && touchIDEnabled && !settingsViewActive {
-        authContext.evaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics,
+        authContext.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics,
           localizedReason: NSLocalizedString(Constants.AuthenticateString, comment: ""),
-          reply: { (success: Bool, error: NSError?) in
-            dispatch_async(dispatch_get_main_queue(), {
+          reply: { (success: Bool, error: Error?) in
+            DispatchQueue.main.async {
               if success {
                 self.updateClipboardCheckmark()
                 self.removeBlurView()
@@ -186,7 +187,7 @@ class MainViewController: AppViewController {
               else {
                 self.forceSettings()
               }
-            })
+            }
         })
       }
       else {
@@ -201,12 +202,13 @@ class MainViewController: AppViewController {
     self.inactiveDate = nil
   }
   
-  func applicationDidEnterBackground(notification: NSNotification) {
-    self.inactiveDate = NSDate()
+  @objc func applicationDidEnterBackground(notification: NSNotification) {
+    self.inactiveDate = Date()
     self.addBlurView()
   }
   
-  func pasteboardChanged(notification: NSNotification) {
+  @objc func pasteboardChanged(notification: NSNotification) {
+    // TODO: ??? not called !!
     self.updateClipboardCheckmark()
   }
   
@@ -221,21 +223,21 @@ class MainViewController: AppViewController {
       hasDomain = true
     }
 
-    self.logoImageView.hidden = hasDomain
+    self.logoImageView.isHidden = hasDomain
     
-    self.domainLabel.hidden = !hasDomain
-    self.passwordTextField.hidden = !hasDomain
-    self.passwordTapView.hidden = !hasDomain
-    self.clipboardButton.hidden = !hasDomain
-    self.safariButton.hidden = !hasDomain
+    self.domainLabel.isHidden = !hasDomain
+    self.passwordTextField.isHidden = !hasDomain
+    self.passwordTapView.isHidden = !hasDomain
+    self.clipboardButton.isHidden = !hasDomain
+    self.safariButton.isHidden = !hasDomain
     
     self.updateClipboardCheckmark()
     
     if let _ = self.recentSites {
-      self.matchingSites = self.recentSitesMatchingText((self.siteTextField.text ?? "").lowercaseString)
+      self.matchingSites = self.recentSitesMatchingText(text: (self.siteTextField.text ?? "").lowercased())
       
       if self.matchingSites!.count == 0 {
-        self.matchingSitesView.hidden = true
+        self.matchingSitesView.isHidden = true
       }
       else {
         self.matchingSitesTableView.reloadData()
@@ -247,10 +249,12 @@ class MainViewController: AppViewController {
   }
 
   @IBAction private func passwordLengthChanged() {
-    NSUserDefaults.standardUserDefaults().setInteger(Int(self.passwordLengthStepper.value), forKey: Constants.PasswordLengthDefaultsKey)
-    NSUserDefaults.standardUserDefaults().synchronize()
+    self.passwordLengthStepper.updateLabel()
+
+    UserDefaults.standard.set(Int(self.passwordLengthStepper.value), forKey: Constants.PasswordLengthDefaultsKey)
+    UserDefaults.standard.synchronize()
     
-    if !self.passwordTextField.hidden {
+    if !self.passwordTextField.isHidden {
       self.updatePasswordTextField()
       self.updateClipboardCheckmark()
     }
@@ -259,10 +263,10 @@ class MainViewController: AppViewController {
   @IBAction private func passwordTypeChanged() {
     let passwordType = [PasswordType.MD5, PasswordType.SHA512][self.passwordTypeSegment.selectedSegmentIndex]
     
-    NSUserDefaults.standardUserDefaults().setObject(passwordType.rawValue, forKey: Constants.PasswordTypeDefaultsKey)
-    NSUserDefaults.standardUserDefaults().synchronize()
+    UserDefaults.standard.set(passwordType.rawValue, forKey: Constants.PasswordTypeDefaultsKey)
+    UserDefaults.standard.synchronize()
     
-    if !self.passwordTextField.hidden {
+    if !self.passwordTextField.isHidden {
       self.updatePasswordTextField()
       self.updateClipboardCheckmark()
     }
@@ -270,7 +274,7 @@ class MainViewController: AppViewController {
   
   @IBAction private func tapGestureRecognized(recognizer: UITapGestureRecognizer) {
     if recognizer.view == self.passwordTapView {
-      self.passwordTextField.secureTextEntry = !self.passwordTextField.secureTextEntry
+      self.passwordTextField.isSecureTextEntry = !self.passwordTextField.isSecureTextEntry
       self.siteTextField.resignFirstResponder()
     }
     else {
@@ -279,8 +283,8 @@ class MainViewController: AppViewController {
   }
   
   @IBAction private func help() {
-    self.performSegueWithIdentifier(Constants.HelpSegueIdentifier) { (segue) in
-      let helpViewController = segue.destinationViewController as! HelpViewController
+    self.performSegue(withIdentifier: Constants.HelpSegueIdentifier) { segue in
+      let helpViewController = segue.destination as! HelpViewController
       
       helpViewController.documentName = "MainHelp"
       helpViewController.delegate = self
@@ -288,25 +292,25 @@ class MainViewController: AppViewController {
   }
 
   @IBAction private func about() {
-    self.performSegueWithIdentifier(Constants.AboutSegueIdentifier) { (segue) in
-      let aboutViewController = segue.destinationViewController as! AboutViewController
+    self.performSegue(withIdentifier: Constants.AboutSegueIdentifier) { segue in
+      let aboutViewController = segue.destination as! AboutViewController
       
       aboutViewController.delegate = self
     }
   }
   
   @IBAction private func settings() {
-    self.performSegueWithIdentifier(Constants.SettingsSegueIdentifier, preparation: { (segue: UIStoryboardSegue) in
-      let settingsViewController = segue.destinationViewController as! SettingsViewController
+    self.performSegue(withIdentifier: Constants.SettingsSegueIdentifier) { segue in
+      let settingsViewController = segue.destination as! SettingsViewController
       
       settingsViewController.canCancel = PasswordGenerator.sharedGenerator.hasMasterPassword
       self.configureSettingsViewController(settingsViewController)
       settingsViewController.delegate = self
-    })
+    }
   }
   
   @IBAction private func copyToClipboard() {
-    UIPasteboard.generalPasteboard().string = self.passwordTextField.text
+    UIPasteboard.general.string = self.passwordTextField.text
     self.updateClipboardCheckmark()
     
     if self.recentSites != nil {
@@ -316,7 +320,7 @@ class MainViewController: AppViewController {
 
   @IBAction private func launchSafari() {
     if var site = self.siteTextField.text {
-      if site.rangeOfString(":") == nil {
+      if site.range(of: ":") == nil {
         site = "http://" + site
       }
 
@@ -324,8 +328,8 @@ class MainViewController: AppViewController {
         self.addToRecentSites()
       }
       
-      if let URL = NSURL(string: site) {
-        UIApplication.sharedApplication().openURL(URL)
+      if let URL = URL(string: site) {
+        UIApplication.shared.open(URL)
       }
     }
   }
@@ -337,10 +341,10 @@ class MainViewController: AppViewController {
       return
     }
   
-    self.blurView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.Dark))
+    self.blurView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffect.Style.dark))
     
     self.blurView!.frame = self.view.bounds
-    self.blurView!.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+    self.blurView!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
   
     self.view.addSubview(self.blurView!)
   }
@@ -358,23 +362,23 @@ class MainViewController: AppViewController {
     }
     else {
       if let _ = self.presentedViewController {
-        self.dismissViewControllerAnimated(false, completion: nil)
+        self.dismiss(animated: false, completion: nil)
       }
       
-      self.performSegueWithIdentifier(Constants.SettingsSegueIdentifier, preparation: { (segue) in
-        let settingsViewController = segue.destinationViewController as! SettingsViewController
+      self.performSegue(withIdentifier: Constants.SettingsSegueIdentifier) { segue in
+        let settingsViewController = segue.destination as! SettingsViewController
         
         settingsViewController.canCancel = false
         self.configureSettingsViewController(settingsViewController)
         settingsViewController.delegate = self
-      })
+      }
     }
   }
   
-  private func configureSettingsViewController(settingsViewController: SettingsViewController) {
-    settingsViewController.backgroundTimeout = NSUserDefaults.standardUserDefaults().integerForKey(Constants.BackgroundTimeoutDefaultsKey)
+  private func configureSettingsViewController(_ settingsViewController: SettingsViewController) {
+    settingsViewController.backgroundTimeout = UserDefaults.standard.integer(forKey: Constants.BackgroundTimeoutDefaultsKey)
     settingsViewController.remembersRecentSites = (self.recentSites != nil)
-    settingsViewController.touchIDEnabled = NSUserDefaults.standardUserDefaults().boolForKey(Constants.TouchIDEnabledDefaultsKey)
+    settingsViewController.touchIDEnabled = UserDefaults.standard.bool(forKey: Constants.TouchIDEnabledDefaultsKey)
   }
   
   private func addToRecentSites() {
@@ -387,13 +391,13 @@ class MainViewController: AppViewController {
   
       // Append the site to the end of the ordered set.
   
-      self.recentSites!.removeObject(site)
+      self.recentSites!.remove(site)
   
       if self.recentSites!.count >= Constants.MaxRecentSites {
-        self.recentSites!.removeObjectAtIndex(0)
+        self.recentSites!.removeObject(at: 0)
       }
   
-      self.recentSites!.addObject(site)
+      self.recentSites!.add(site)
       self.saveRecentSites()
     }
   }
@@ -407,51 +411,51 @@ class MainViewController: AppViewController {
     }
   
     for site in self.recentSites! {
-      let range = site.rangeOfString(text)
+      let site = site as! String
+      let range = site.range(of: text)
   
-      if range.location == 0 {
-        prefixSites.append(site as! String)
+      if range?.lowerBound == site.startIndex {
+        prefixSites.append(site)
       }
-      else if range.location != NSNotFound {
-        insideSites.append(site as! String)
+      else if range != nil {
+        insideSites.append(site)
       }
     }
   
-    return prefixSites.sort() + insideSites.sort()
+    return prefixSites.sorted() + insideSites.sorted()
   }
   
   private func saveRecentSites() {
-    let data = try! NSJSONSerialization.dataWithJSONObject(self.recentSites!.array, options: NSJSONWritingOptions())
+    let data = try! JSONSerialization.data(withJSONObject: self.recentSites!.array, options: JSONSerialization.WritingOptions())
     
-    Keychain.setString((NSString(data: data, encoding: NSUTF8StringEncoding)! as String), forKey: Constants.RecentSitesKeychainKey)
+    DefaultKeychain[.RecentSites] = String(data: data, encoding: .utf8)!
   }
   
   private func sizeAndShowMatchingSitesView() {
     self.matchingSitesViewHeightConstraint.constant = CGFloat(min(self.matchingSites!.count, 5)) * self.matchingSitesTableView.rowHeight
-    self.matchingSitesView.hidden = false
+    self.matchingSitesView.isHidden = false
   }
   
   private func updatePasswordTextField() {
-    self.passwordTextField.secureTextEntry = true
+    self.passwordTextField.isSecureTextEntry = true
     self.passwordTextField.text = PasswordGenerator.sharedGenerator.passwordForSite(self.siteTextField.text ?? "",
       length: Int(self.passwordLengthStepper.value),
       type: [PasswordType.MD5, PasswordType.SHA512][self.passwordTypeSegment.selectedSegmentIndex])
   }
   
   private func updateClipboardCheckmark() {
-    self.checkmarkImageView.hidden = self.clipboardButton.hidden ||
-                                     ((self.passwordTextField.text ?? "") != UIPasteboard.generalPasteboard().string)
+    self.checkmarkImageView.isHidden = self.clipboardButton.isHidden ||
+                                     ((self.passwordTextField.text ?? "") != UIPasteboard.general.string)
   }
 }
 
 extension MainViewController: UITableViewDataSource {
-  
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return self.matchingSites?.count ?? 0
   }
   
-  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = self.matchingSitesTableView.dequeueReusableCellWithIdentifier(Constants.MatchingSitesTableViewCellIdentifier)!
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = self.matchingSitesTableView.dequeueReusableCell(withIdentifier: Constants.MatchingSitesTableViewCellIdentifier)!
     
     cell.textLabel!.text = self.matchingSites![indexPath.row]
     
@@ -461,21 +465,21 @@ extension MainViewController: UITableViewDataSource {
 
 extension MainViewController: UITableViewDelegate {
   
-  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    tableView.deselectRowAtIndexPath(indexPath, animated: true)
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    tableView.deselectRow(at: indexPath, animated: true)
 
     self.siteTextField.text = self.matchingSites![indexPath.row]
     self.siteTextField.resignFirstResponder()
     
     self.editingChanged()
     
-    self.matchingSitesView.hidden = true
+    self.matchingSitesView.isHidden = true
   }
 }
 
 extension MainViewController: UITextFieldDelegate {
   
-  func textFieldDidBeginEditing(textField: UITextField) {
+  func textFieldDidBeginEditing(_ textField: UITextField) {
     if let _ = self.recentSites {
       if self.matchingSites!.count > 0 {
         self.sizeAndShowMatchingSitesView()
@@ -483,13 +487,13 @@ extension MainViewController: UITextFieldDelegate {
     }
   }
   
-  func textFieldDidEndEditing(textField: UITextField) {
+  func textFieldDidEndEditing(_ textField: UITextField) {
     if let _ = self.recentSites {
-      self.matchingSitesView.hidden = true
+      self.matchingSitesView.isHidden = true
     }
   }
   
-  func textFieldShouldReturn(textField: UITextField) -> Bool {
+  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
     textField.resignFirstResponder()
     return true
   }
@@ -498,21 +502,21 @@ extension MainViewController: UITextFieldDelegate {
 extension MainViewController: AboutViewControllerDelegate {
   
   func aboutViewControllerDidFinish(aboutViewController: AboutViewController) {
-    self.dismissViewControllerAnimated(true, completion: nil)
+    self.dismiss(animated: true, completion: nil)
   }
 }
 
 extension MainViewController: HelpViewControllerDelegate {
   
   func helpViewControllerDidFinish(helpViewController: HelpViewController) {
-    self.dismissViewControllerAnimated(true, completion: nil)
+    self.dismiss(animated: true, completion: nil)
   }
 }
 
 extension MainViewController: SettingsViewControllerDelegate {
   
   func settingsViewControllerDidFinish(settingsViewController: SettingsViewController) {
-    PasswordGenerator.sharedGenerator.setMasterPasswordForCurrentHash(settingsViewController.masterPassword)
+    let _ = PasswordGenerator.sharedGenerator.setMasterPasswordForCurrentHash(masterPassword: settingsViewController.masterPassword)
     
     if settingsViewController.remembersRecentSites {
       if self.recentSites == nil {
@@ -526,31 +530,31 @@ extension MainViewController: SettingsViewControllerDelegate {
       if self.recentSites != nil {
         self.recentSites = nil
         self.matchingSites = nil
-        self.matchingSitesView.hidden = true
+        self.matchingSitesView.isHidden = true
         
-        Keychain.removeStringForKey(Constants.RecentSitesKeychainKey)
+        DefaultKeychain[.RecentSites] = nil
       }
     }
     
-    NSUserDefaults.standardUserDefaults().setBool(settingsViewController.touchIDEnabled, forKey:Constants.TouchIDEnabledDefaultsKey)
-    NSUserDefaults.standardUserDefaults().setInteger(settingsViewController.backgroundTimeout, forKey:Constants.BackgroundTimeoutDefaultsKey)
-    NSUserDefaults.standardUserDefaults().synchronize()
+    UserDefaults.standard.set(settingsViewController.touchIDEnabled, forKey:Constants.TouchIDEnabledDefaultsKey)
+    UserDefaults.standard.set(settingsViewController.backgroundTimeout, forKey:Constants.BackgroundTimeoutDefaultsKey)
+    UserDefaults.standard.synchronize()
     
-    if !self.passwordTextField.hidden {
+    if !self.passwordTextField.isHidden {
       self.updatePasswordTextField()
       self.updateClipboardCheckmark()
     }
     
     self.removeBlurView()
-    self.dismissViewControllerAnimated(true, completion:nil)
+    self.dismiss(animated: true, completion:nil)
   }
 
   func settingsViewControllerDidCancel(settingsViewController: SettingsViewController) {
-    if !self.passwordTextField.hidden {
+    if !self.passwordTextField.isHidden {
       self.updatePasswordTextField()
       self.updateClipboardCheckmark()
     }
     
-    self.dismissViewControllerAnimated(true, completion:nil)
+    self.dismiss(animated: true, completion:nil)
   }
 }

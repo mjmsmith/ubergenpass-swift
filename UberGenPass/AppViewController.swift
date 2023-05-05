@@ -1,28 +1,19 @@
 import UIKit
 
-typealias PreparationClosure = (segue: UIStoryboardSegue) -> Void
-
-private class PreparationClosureWrapper {
-  
-  let closure: PreparationClosure
-  
-  init(closure: PreparationClosure) {
-    self.closure = closure
-  }
-}
+public typealias SegueCallback = (_ segue: UIStoryboardSegue) -> Void
 
 class AppViewController: UIViewController {
   
-  func performSegueWithIdentifier(identifier: String, preparation: PreparationClosure) {
-    self.performSegueWithIdentifier(identifier, sender: PreparationClosureWrapper(closure: preparation))
+  public func performSegue(withIdentifier identifier: String, callback: @escaping SegueCallback) {
+    self.performSegue(withIdentifier: identifier, sender: callback)
   }
-  
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    if let closureWrapper = sender as? PreparationClosureWrapper {
-      closureWrapper.closure(segue: segue)
+
+  public override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if let closure = sender as? SegueCallback {
+      closure(segue)
     }
     else {
-      super.prepareForSegue(segue, sender: sender)
+      super.prepare(for: segue, sender: sender)
     }
   }
 }

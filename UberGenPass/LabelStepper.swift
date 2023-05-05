@@ -15,28 +15,31 @@ class LabelStepper: UIStepper {
     self.initLabel()
   }
 
-  override func dividerImageForLeftSegmentState(state: UIControlState, rightSegmentState: UIControlState) -> UIImage? {
+  func updateLabel() {
     self.label.text = String(Int(self.value))
-    
-    return self.imageFromView(self.label)
+    self.setDividerImage(self.imageFromView(self.label), forLeftSegmentState: .normal, rightSegmentState: .normal)
+    self.setDividerImage(self.imageFromView(self.label), forLeftSegmentState: .normal, rightSegmentState: .highlighted)
+    self.setDividerImage(self.imageFromView(self.label), forLeftSegmentState: .highlighted, rightSegmentState: .normal)
+    self.setDividerImage(self.imageFromView(self.label), forLeftSegmentState: .highlighted, rightSegmentState: .highlighted)
   }
 
   //MARK: Private
   
   private func initLabel() {
     self.label.frame = CGRect(x: 0, y: 0, width: 30, height: self.frame.size.height)
+    self.label.backgroundColor = .clear
     
-    self.label.textAlignment = .Center
+    self.label.textAlignment = .center
     self.label.textColor = self.tintColor
     self.label.adjustsFontSizeToFitWidth = true
-    
-    self.setDividerImage(self.imageFromView(self.label), forLeftSegmentState: .Normal, rightSegmentState: .Normal)
+
+    self.updateLabel()
   }
   
-  private func imageFromView(view: UIView) -> UIImage {
+  private func imageFromView(_ view: UIView) -> UIImage? {
     UIGraphicsBeginImageContextWithOptions(view.frame.size, false, 0.0)
     
-    view.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+    view.layer.render(in: UIGraphicsGetCurrentContext()!)
     let image = UIGraphicsGetImageFromCurrentImageContext()
     
     UIGraphicsEndImageContext()

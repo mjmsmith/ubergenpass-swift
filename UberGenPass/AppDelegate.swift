@@ -1,5 +1,3 @@
-import Crashlytics
-import Fabric
 import UIKit
 
 @UIApplicationMain
@@ -7,41 +5,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
 
-  func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-    // Crashlytics.
-    
-    Fabric.with([Crashlytics()])
+  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+    if #available(iOS 13, *) {
+        window?.overrideUserInterfaceStyle = .light
+    }
 
     // Register defaults.
     
-    let dict = NSDictionary(contentsOfFile: NSBundle.mainBundle().pathForResource("UserDefaults", ofType:"plist")!)
+    let dict = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "UserDefaults", ofType:"plist")!)
     
-    NSUserDefaults.standardUserDefaults().registerDefaults(dict as! Dictionary)
+    UserDefaults.standard.register(defaults: dict as! Dictionary)
 
     // Update version.
     
-    let currentVersion = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as! String
-    let defaultsVersion = NSUserDefaults.standardUserDefaults().stringForKey(Constants.AppVersionDefaultsKey) as String?
+    let currentVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
+    let defaultsVersion = UserDefaults.standard.string(forKey: Constants.AppVersionDefaultsKey) as String?
 
     if (currentVersion != defaultsVersion) {
-      self.versionUpdatedFrom(defaultsVersion, to:currentVersion)
+      self.versionUpdatedFrom(defaultsVersion: defaultsVersion, to:currentVersion)
     }
     
     return true
   }
 
-  func application(app: UIApplication, openURL URL: NSURL, options: [String : AnyObject]) -> Bool {
+  func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
     // Strip off our scheme prefix to get the real URL.
     
-    let urlTypes = NSBundle.mainBundle().infoDictionary!["CFBundleURLTypes"] as! NSArray
+    let urlTypes = Bundle.main.infoDictionary!["CFBundleURLTypes"] as! NSArray
     let urlType = urlTypes[0] as! NSDictionary
     let urlSchemes = urlType["CFBundleURLSchemes"] as! NSArray
     let urlScheme = urlSchemes[0] as! NSString
     
-    var url = (URL.absoluteString as NSString).substringFromIndex(urlScheme.length+1)
+    var url = (url.absoluteString as NSString).substring(from: urlScheme.length+1)
     
     if url.hasPrefix("//") {
-      url = (url as NSString).substringFromIndex(2)
+      url = (url as NSString).substring(from: 2)
     }
     
     // Ignore about: URLs.
@@ -61,13 +59,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // If we have no previous version, remove keychain items in case this is a reinstall.
     
     if defaultsVersion == nil {
-      Keychain.removeStringForKey(Constants.PasswordHashKeychainKey)
-      Keychain.removeStringForKey(Constants.PasswordSecretKeychainKey)
-      Keychain.removeStringForKey(Constants.RecentSitesKeychainKey)
+      DefaultKeychain[.Hash] = nil
+      DefaultKeychain[.Secret] = nil
+      DefaultKeychain[.RecentSites] = nil
     }
-    
-    NSUserDefaults.standardUserDefaults().setObject(currentVersion, forKey: Constants.AppVersionDefaultsKey)
-    NSUserDefaults.standardUserDefaults().synchronize()
+
+    UserDefaults.standard.set(currentVersion, forKey: Constants.AppVersionDefaultsKey)
+    UserDefaults.standard.synchronize()
   }
 }
 

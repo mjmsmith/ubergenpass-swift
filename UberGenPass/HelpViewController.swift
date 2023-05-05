@@ -1,6 +1,6 @@
 import UIKit
 
-protocol HelpViewControllerDelegate: class {
+protocol HelpViewControllerDelegate: AnyObject {
   func helpViewControllerDidFinish(helpViewController: HelpViewController)
 }
 
@@ -16,10 +16,10 @@ class HelpViewController: AppViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    self.backButtonItem.enabled = false
-    self.forwardButtonItem.enabled = false
+    self.backButtonItem.isEnabled = false
+    self.forwardButtonItem.isEnabled = false
     
-    self.webView.loadRequest(NSURLRequest(URL: NSBundle.mainBundle().URLForResource(self.documentName, withExtension: "html")!))
+    self.webView.loadRequest(URLRequest(url: Bundle.main.url(forResource: self.documentName, withExtension: "html")!))
   }
 
   // MARK: Actions
@@ -35,14 +35,14 @@ class HelpViewController: AppViewController {
   // MARK: Private
   
   @IBAction private func done() {
-    self.delegate?.helpViewControllerDidFinish(self)
+    self.delegate?.helpViewControllerDidFinish(helpViewController: self)
   }
 }
 
 extension HelpViewController: UIWebViewDelegate {
   
-  func webViewDidFinishLoad(webView: UIWebView) {
-    self.backButtonItem.enabled = self.webView.canGoBack
-    self.forwardButtonItem.enabled = self.webView.canGoForward
+  func webViewDidFinishLoad(_ webView: UIWebView) {
+    self.backButtonItem.isEnabled = self.webView.canGoBack
+    self.forwardButtonItem.isEnabled = self.webView.canGoForward
   }
 }

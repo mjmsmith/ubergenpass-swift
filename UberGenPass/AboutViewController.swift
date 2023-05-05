@@ -1,6 +1,6 @@
 import UIKit
 
-protocol AboutViewControllerDelegate: class {
+protocol AboutViewControllerDelegate: AnyObject {
   func aboutViewControllerDidFinish(aboutViewController: AboutViewController)
 }
 
@@ -15,36 +15,37 @@ class AboutViewController: AppViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    let version = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString")!
+    let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") ?? ""
     
     self.nameLabel.text = "UberGenPass \(version)"
 
     self.rateButton.layer.cornerRadius = 8.0
     
     self.webView.scrollView.bounces = false
-    self.webView.loadRequest(NSURLRequest(URL: NSBundle.mainBundle().URLForResource("About", withExtension: "html")!))
+    self.webView.loadRequest(URLRequest(url: Bundle.main.url(forResource: "About", withExtension: "html")!))
   }
-  
-  override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-    return .Portrait
+
+  override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+    return .portrait
   }
   
   // MARK: Actions
   
   @IBAction private func rate() {
-    UIApplication.sharedApplication().openURL(NSURL(string: "http://appstore.com/ubergenpass")!)
+    UIApplication.shared.open(URL(string: "https://apps.apple.com/app/id588224057")!)
   }
 
   @IBAction private func done() {
-    self.delegate?.aboutViewControllerDidFinish(self)
+    self.delegate?.aboutViewControllerDidFinish(aboutViewController: self)
   }
 }
 
 extension AboutViewController: UIWebViewDelegate {
   
-  func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-    if navigationType == .LinkClicked && request.URL!.absoluteString.hasPrefix("http") {
-      UIApplication.sharedApplication().openURL(request.URL!)
+  private func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebView.NavigationType) -> Bool {
+    if navigationType == .linkClicked,
+       let url = request.url {
+      UIApplication.shared.open(url)
       return false
     }
     

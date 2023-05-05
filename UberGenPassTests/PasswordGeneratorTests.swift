@@ -6,7 +6,7 @@ class PasswordGeneratorTests: XCTestCase {
   
   override func setUp() {
     super.setUp()
-    self.generator.updateMasterPassword("abra", secretPassword:"cadabra")
+    self.generator.updateMasterPassword(masterPassword: "abra", secretPassword:"cadabra")
   }
   
   override func tearDown() {
@@ -73,14 +73,14 @@ class PasswordGeneratorTests: XCTestCase {
     XCTAssertEqual(self.generator.passwordForSite("http://example.com", length:4, type:.MD5), "sG0h")
     for i in 5..<24 {
       XCTAssertEqual(self.generator.passwordForSite("http://example.com", length:i, type:.MD5),
-                     ("vECk329fUoS5hG82rn89MAAA" as NSString).substringToIndex(i))
+                     ("vECk329fUoS5hG82rn89MAAA" as NSString).substring(to: i))
     }
 
     // SHA
   
     for i in 4..<24 {
       XCTAssertEqual(self.generator.passwordForSite("http://example.com", length:i, type:.SHA512),
-                     ("qUk8Mt3KdgS09faw1mdrOqRb" as NSString).substringToIndex(i))
+                     ("qUk8Mt3KdgS09faw1mdrOqRb" as NSString).substring(to: i))
     }
   }
 

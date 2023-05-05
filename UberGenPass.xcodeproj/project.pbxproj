@@ -3,12 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 53;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		08E24322738270FD87413BA4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 458D046EA2A461F316B338AE /* libPods.a */; };
-		2F70264A2EFBC53AD305FA5D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 458D046EA2A461F316B338AE /* libPods.a */; };
+		0FD99B0990C69B8CCEDF3AB0 /* Pods_UberGenPass.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 763A3D05051BD244BC5DE1A5 /* Pods_UberGenPass.framework */; };
 		4D26F5EA1B7405E400CCEE62 /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D26F5E91B7405E400CCEE62 /* NSData+CommonCrypto.m */; };
 		4D26F5ED1B7407F300CCEE62 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D26F5EC1B7407F300CCEE62 /* Constants.swift */; };
 		4D56C0971B74568500E76B4E /* GreenStatus.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D56C08F1B74568500E76B4E /* GreenStatus.png */; };
@@ -38,7 +37,6 @@
 		4DB56FC41B72D2A900FBD858 /* PasswordGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB56FC31B72D2A900FBD858 /* PasswordGenerator.swift */; };
 		4DB91D381B730D7800FCC77E /* PasswordGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB91D371B730D7800FCC77E /* PasswordGeneratorTests.swift */; };
 		4DB91D3A1B730D9F00FCC77E /* KeychainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB91D391B730D9F00FCC77E /* KeychainTests.swift */; };
-		4DDCD18E1B72EE8100F3B81E /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDCD18D1B72EE8100F3B81E /* Keychain.swift */; };
 		4DE172D11B7ADEA800162A42 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4DE172CF1B7ADEA800162A42 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
@@ -60,8 +58,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		29A94C30C1CFEED4FC4188CB /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		458D046EA2A461F316B338AE /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		130277A169D00491226983A8 /* Pods-UberGenPass.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UberGenPass.release.xcconfig"; path = "Target Support Files/Pods-UberGenPass/Pods-UberGenPass.release.xcconfig"; sourceTree = "<group>"; };
 		4D26F5E71B7405E400CCEE62 /* UberGenPass-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UberGenPass-Bridging-Header.h"; sourceTree = "<group>"; };
 		4D26F5E81B7405E400CCEE62 /* NSData+CommonCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+CommonCrypto.h"; sourceTree = "<group>"; };
 		4D26F5E91B7405E400CCEE62 /* NSData+CommonCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+CommonCrypto.m"; sourceTree = "<group>"; };
@@ -99,17 +96,17 @@
 		4DB56FC31B72D2A900FBD858 /* PasswordGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordGenerator.swift; sourceTree = "<group>"; };
 		4DB91D371B730D7800FCC77E /* PasswordGeneratorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PasswordGeneratorTests.swift; path = UberGenPassTests/PasswordGeneratorTests.swift; sourceTree = SOURCE_ROOT; };
 		4DB91D391B730D9F00FCC77E /* KeychainTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeychainTests.swift; path = UberGenPassTests/KeychainTests.swift; sourceTree = SOURCE_ROOT; };
-		4DDCD18D1B72EE8100F3B81E /* Keychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		4DE172D01B7ADEA800162A42 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
-		AA4D60FC0A191A4733DAC4FF /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		763A3D05051BD244BC5DE1A5 /* Pods_UberGenPass.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UberGenPass.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C36C66A67C4EFA2662918AE8 /* Pods-UberGenPass.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UberGenPass.debug.xcconfig"; path = "Target Support Files/Pods-UberGenPass/Pods-UberGenPass.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		4D8DE7571B72D20300DFFA18 /* Frameworks */ = {
+		10D58EE4485A928DF272142A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				08E24322738270FD87413BA4 /* libPods.a in Frameworks */,
+				0FD99B0990C69B8CCEDF3AB0 /* Pods_UberGenPass.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -117,7 +114,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2F70264A2EFBC53AD305FA5D /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,15 +127,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0F28D862ADA9D5854664AA44 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				AA4D60FC0A191A4733DAC4FF /* Pods.debug.xcconfig */,
-				29A94C30C1CFEED4FC4188CB /* Pods.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		4D26F5EB1B74061200CCEE62 /* Headers */ = {
 			isa = PBXGroup;
 			children = (
@@ -186,8 +173,8 @@
 				4D8DE7711B72D20300DFFA18 /* UberGenPassTests */,
 				4D8DE77C1B72D20300DFFA18 /* UberGenPassUITests */,
 				4D8DE75B1B72D20300DFFA18 /* Products */,
-				0F28D862ADA9D5854664AA44 /* Pods */,
 				ED7172B2BD903F29A7E1C68C /* Frameworks */,
+				7C46D112EC977D52237D1530 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -261,16 +248,24 @@
 			isa = PBXGroup;
 			children = (
 				4D26F5EC1B7407F300CCEE62 /* Constants.swift */,
-				4DDCD18D1B72EE8100F3B81E /* Keychain.swift */,
 				4DB56FC31B72D2A900FBD858 /* PasswordGenerator.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
 		};
+		7C46D112EC977D52237D1530 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C36C66A67C4EFA2662918AE8 /* Pods-UberGenPass.debug.xcconfig */,
+				130277A169D00491226983A8 /* Pods-UberGenPass.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		ED7172B2BD903F29A7E1C68C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				458D046EA2A461F316B338AE /* libPods.a */,
+				763A3D05051BD244BC5DE1A5 /* Pods_UberGenPass.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -282,12 +277,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4D8DE7821B72D20300DFFA18 /* Build configuration list for PBXNativeTarget "UberGenPass" */;
 			buildPhases = (
-				C83330DD971262331885AB98 /* Check Pods Manifest.lock */,
+				A2854EB1187FE94CBA711135 /* [CP] Check Pods Manifest.lock */,
 				4D8DE7561B72D20300DFFA18 /* Sources */,
-				4D8DE7571B72D20300DFFA18 /* Frameworks */,
 				4D8DE7581B72D20300DFFA18 /* Resources */,
-				2B58277BFE65F13EFA618832 /* Copy Pods Resources */,
-				4DAF03EE1B7D6BF500831625 /* Crashlytics */,
+				10D58EE4485A928DF272142A /* Frameworks */,
+				928ECA66C8B10B6CE3180D96 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -302,11 +296,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4D8DE7851B72D20300DFFA18 /* Build configuration list for PBXNativeTarget "UberGenPassTests" */;
 			buildPhases = (
-				5D0DDDB7DE70E5A06EFBE52F /* Check Pods Manifest.lock */,
 				4D8DE76A1B72D20300DFFA18 /* Sources */,
 				4D8DE76B1B72D20300DFFA18 /* Frameworks */,
 				4D8DE76C1B72D20300DFFA18 /* Resources */,
-				230A7758EB5360EE11D35701 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -342,8 +334,9 @@
 		4D8DE7521B72D20300DFFA18 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 1430;
 				ORGANIZATIONNAME = "Camazotz Limited";
 				TargetAttributes = {
 					4D8DE7591B72D20300DFFA18 = {
@@ -361,7 +354,7 @@
 			};
 			buildConfigurationList = 4D8DE7551B72D20300DFFA18 /* Build configuration list for PBXProject "UberGenPass" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -419,78 +412,44 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		230A7758EB5360EE11D35701 /* Copy Pods Resources */ = {
+		928ECA66C8B10B6CE3180D96 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-UberGenPass/Pods-UberGenPass-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-UberGenPass/Pods-UberGenPass-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		2B58277BFE65F13EFA618832 /* Copy Pods Resources */ = {
+		A2854EB1187FE94CBA711135 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
+			inputFileListPaths = (
 			);
-			name = "Copy Pods Resources";
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-UberGenPass-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4DAF03EE1B7D6BF500831625 /* Crashlytics */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = Crashlytics;
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/Fabric.framework/run\" cc4730021c88fb878d67475c54ab44abdea2dd8e ${FABRIC_BUILD_SECRET}";
-		};
-		5D0DDDB7DE70E5A06EFBE52F /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		C83330DD971262331885AB98 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -502,7 +461,6 @@
 			files = (
 				4DAB216A1B75142D000A68F0 /* MainViewController.swift in Sources */,
 				4D6657E71B7908A90035E817 /* PasswordsViewController.swift in Sources */,
-				4DDCD18E1B72EE8100F3B81E /* Keychain.swift in Sources */,
 				4DAB21731B759070000A68F0 /* StatusImageView.swift in Sources */,
 				4D6657E51B76D5F70035E817 /* AppViewController.swift in Sources */,
 				4DAB21701B758E8C000A68F0 /* SettingsViewController.swift in Sources */,
@@ -622,17 +580,29 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Mark Smith (BTWH9L8Z29)";
@@ -655,11 +625,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -667,17 +638,29 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Camazotz Limited (G7ZK42W7RU)";
@@ -694,25 +677,36 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
 		4D8DE7831B72D20300DFFA18 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AA4D60FC0A191A4733DAC4FF /* Pods.debug.xcconfig */;
+			baseConfigurationReference = C36C66A67C4EFA2662918AE8 /* Pods-UberGenPass.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = G7ZK42W7RU;
 				INFOPLIST_FILE = UberGenPass/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 5.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.camazotz.UberGenPass;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c715de27-73b4-4dbe-a23d-75fb60e855c8";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "UberGenPass/UberGenPass-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -721,16 +715,25 @@
 		};
 		4D8DE7841B72D20300DFFA18 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 29A94C30C1CFEED4FC4188CB /* Pods.release.xcconfig */;
+			baseConfigurationReference = 130277A169D00491226983A8 /* Pods-UberGenPass.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = G7ZK42W7RU;
 				INFOPLIST_FILE = UberGenPass/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 5.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.camazotz.UberGenPass;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "caa9b613-b8d5-48a2-8cf5-f4355db5d69e";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "UberGenPass/UberGenPass-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -738,11 +741,14 @@
 		};
 		4D8DE7861B72D20300DFFA18 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AA4D60FC0A191A4733DAC4FF /* Pods.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = UberGenPassTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.camazotz.UberGenPassTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/UberGenPass.app/UberGenPass";
@@ -751,11 +757,14 @@
 		};
 		4D8DE7871B72D20300DFFA18 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 29A94C30C1CFEED4FC4188CB /* Pods.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = UberGenPassTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.camazotz.UberGenPassTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/UberGenPass.app/UberGenPass";
@@ -766,7 +775,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = UberGenPassUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.camazotz.UberGenPassUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -779,7 +792,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = UberGenPassUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.camazotz.UberGenPassUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

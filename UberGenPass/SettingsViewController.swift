@@ -1,13 +1,22 @@
 import LocalAuthentication
 import UIKit
 
-protocol SettingsViewControllerDelegate: class {
+protocol SettingsViewControllerDelegate: AnyObject {
   func settingsViewControllerDidFinish(settingsViewController: SettingsViewController)
   func settingsViewControllerDidCancel(settingsViewController: SettingsViewController)
 }
 
 class SettingsViewController: AppViewController {
-  var canCancel = true
+  var canCancel = true {
+    didSet {
+      if let cancelButtonItem = self.cancelButtonItem {
+        cancelButtonItem.isEnabled = self.canCancel
+      }
+      if #available(iOS 13, *) {
+        self.isModalInPresentation = !self.canCancel
+      }
+    }
+  }
   var masterPassword = ""
   var remembersRecentSites = false
   var touchIDEnabled = false
@@ -29,27 +38,26 @@ class SettingsViewController: AppViewController {
   func resetForActivate() {
     if self.canCancel {
       self.canCancel = false
-      self.cancelButtonItem.enabled = false
     }
     
     self.passwordTextField.text = nil
     self.passwordTextField.becomeFirstResponder()
     
-    self.editingChanged(nil)
+    self.editingChanged(sender: nil)
   }
 
   override func viewDidLoad() {
     super.viewDidLoad()
 
     var authError: NSError?
-    let hasTouchID = LAContext().canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: &authError)
+    let hasTouchID = LAContext().canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: &authError)
     
-    self.cancelButtonItem.enabled = self.canCancel
-    
-    self.recentSitesSwitch.on = self.remembersRecentSites
+    self.cancelButtonItem.isEnabled = self.canCancel
 
-    self.touchIDSwitch.on = self.touchIDEnabled
-    self.touchIDSwitch.enabled = hasTouchID
+    self.recentSitesSwitch.isOn = self.remembersRecentSites
+
+    self.touchIDSwitch.isOn = self.touchIDEnabled
+    self.touchIDSwitch.isEnabled = hasTouchID
     
     if self.backgroundTimeout == 60 {
       self.timeoutSegment.selectedSegmentIndex = 1
@@ -58,27 +66,27 @@ class SettingsViewController: AppViewController {
       self.timeoutSegment.selectedSegmentIndex = 2
     }
     
-    self.editingChanged(nil)
+    self.editingChanged(sender: nil)
   }
   
-  override func viewDidAppear(animated: Bool) {
+  override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     
     // If we have no master password hash, force a segue to Passwords (only happens on startup).
     
     if !PasswordGenerator.sharedGenerator.hasPasswordHash {
-      self.performSegueWithIdentifier(Constants.PasswordsSegueIdentifier, preparation: { (segue) in
-        let passwordsViewController = segue.destinationViewController as! PasswordsViewController
+      self.performSegue(withIdentifier: Constants.PasswordsSegueIdentifier) { segue in
+        let passwordsViewController = segue.destination as! PasswordsViewController
         
         passwordsViewController.canCancel = false
         passwordsViewController.delegate = self
-      })
+      }
     }
     else {
       // If the Done button is enabled, resign focus.
       // Otherwise, set focus to the password text field.
       
-      if self.doneButtonItem.enabled {
+      if self.doneButtonItem.isEnabled {
         self.view.endEditing(false)
       }
       else {
@@ -87,16 +95,16 @@ class SettingsViewController: AppViewController {
     }
   }
   
-  override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-    return .Portrait
+  override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+    return .portrait
   }
   
   // MARK: Actions
   
   @IBAction private func editingChanged(sender: UITextField?) {
-    if PasswordGenerator.sharedGenerator.textMatchesHash(self.passwordTextField.text ?? "") {
+    if PasswordGenerator.sharedGenerator.textMatchesHash(text: self.passwordTextField.text ?? "") {
       self.statusImageView.image = self.greenImage
-      self.doneButtonItem.enabled = true
+      self.doneButtonItem.isEnabled = true
 
       self.passwordTextField.resignFirstResponder()
 
@@ -106,7 +114,7 @@ class SettingsViewController: AppViewController {
     }
     else {
       self.statusImageView.image = self.greyImage
-      self.doneButtonItem.enabled = false
+      self.doneButtonItem.isEnabled = false
     }
   }
   
@@ -115,8 +123,8 @@ class SettingsViewController: AppViewController {
   }
 
   @IBAction private func changePasswords() {
-    self.performSegueWithIdentifier(Constants.PasswordsSegueIdentifier) { (segue) in
-      let passwordsViewController = segue.destinationViewController as! PasswordsViewController
+    self.performSegue(withIdentifier: Constants.PasswordsSegueIdentifier) { segue in
+      let passwordsViewController = segue.destination as! PasswordsViewController
       
       passwordsViewController.canCancel = true
       passwordsViewController.delegate = self
@@ -124,8 +132,8 @@ class SettingsViewController: AppViewController {
   }
   
   @IBAction private func help() {
-    self.performSegueWithIdentifier(Constants.HelpSegueIdentifier) { (segue) in
-      let helpViewController = segue.destinationViewController as! HelpViewController
+    self.performSegue(withIdentifier: Constants.HelpSegueIdentifier) { segue in
+      let helpViewController = segue.destination as! HelpViewController
       
       helpViewController.documentName = "SettingsHelp"
       helpViewController.delegate = self
@@ -133,21 +141,21 @@ class SettingsViewController: AppViewController {
   }
   
   @IBAction private func addSafariBookmarklet() {
-    UIPasteboard.generalPasteboard().string = "javascript:location.href='ubergenpass:'+location.href"
-    UIApplication.sharedApplication().openURL(NSURL(string: "http://camazotz.com/ubergenpass/bookmarklet")!)
+    UIPasteboard.general.string = "javascript:location.href='ubergenpass:'+location.href"
+    UIApplication.shared.open(URL(string: "http://camazotz.com/ubergenpass/bookmarklet")!)
   }
   
   @IBAction private func done() {
-    self.masterPassword = self.passwordTextField.text!
-    self.remembersRecentSites = self.recentSitesSwitch.on
-    self.touchIDEnabled = self.touchIDSwitch.on
+    self.masterPassword = self.passwordTextField.text ?? ""
+    self.remembersRecentSites = self.recentSitesSwitch.isOn
+    self.touchIDEnabled = self.touchIDSwitch.isOn
     self.backgroundTimeout = [0, 60, 300][self.timeoutSegment.selectedSegmentIndex]
     
-    self.delegate?.settingsViewControllerDidFinish(self)
+    self.delegate?.settingsViewControllerDidFinish(settingsViewController: self)
   }
 
   @IBAction private func cancel() {
-    self.delegate?.settingsViewControllerDidCancel(self)
+    self.delegate?.settingsViewControllerDidCancel(settingsViewController: self)
   }
   
   // MARK: Private
@@ -155,7 +163,7 @@ class SettingsViewController: AppViewController {
 
 extension SettingsViewController: UITextFieldDelegate {
   
-  func textFieldShouldReturn(textField: UITextField) -> Bool {
+  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
     return false
   }
 }
@@ -163,22 +171,22 @@ extension SettingsViewController: UITextFieldDelegate {
 extension SettingsViewController: HelpViewControllerDelegate {
   
   func helpViewControllerDidFinish(helpViewController: HelpViewController) {
-    self.dismissViewControllerAnimated(true, completion: nil)
+    self.dismiss(animated: true, completion: nil)
   }
 }
 
 extension SettingsViewController: PasswordsViewControllerDelegate {
   
   func passwordsViewControllerDidFinish(passwordsViewController: PasswordsViewController) {
-    PasswordGenerator.sharedGenerator.updateMasterPassword(passwordsViewController.masterPassword, secretPassword: passwordsViewController.secretPassword)
+    PasswordGenerator.sharedGenerator.updateMasterPassword(masterPassword: passwordsViewController.masterPassword, secretPassword: passwordsViewController.secretPassword)
     
-    self.dismissViewControllerAnimated(true, completion: {
+    self.dismiss(animated: true, completion: {
       self.passwordTextField.text = passwordsViewController.masterPassword
-      self.editingChanged(self.passwordTextField)
+      self.editingChanged(sender: self.passwordTextField)
     })
   }
 
   func passwordsViewControllerDidCancel(passwordsViewController: PasswordsViewController) {
-    self.dismissViewControllerAnimated(true, completion: nil)
+    self.dismiss(animated: true, completion: nil)
   }
 }
