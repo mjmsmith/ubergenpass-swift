@@ -19,7 +19,6 @@
 		4D6657E51B76D5F70035E817 /* AppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6657E41B76D5F70035E817 /* AppViewController.swift */; };
 		4D6657E71B7908A90035E817 /* PasswordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6657E61B7908A90035E817 /* PasswordsViewController.swift */; };
 		4D766A871B79358A00F40018 /* About.html in Resources */ = {isa = PBXBuildFile; fileRef = 4D766A7D1B79358A00F40018 /* About.html */; };
-		4D766A881B79358A00F40018 /* Licenses.html in Resources */ = {isa = PBXBuildFile; fileRef = 4D766A7F1B79358A00F40018 /* Licenses.html */; };
 		4D766A891B79358A00F40018 /* MainHelp.html in Resources */ = {isa = PBXBuildFile; fileRef = 4D766A811B79358A00F40018 /* MainHelp.html */; };
 		4D766A8A1B79358A00F40018 /* PasswordsHelp.html in Resources */ = {isa = PBXBuildFile; fileRef = 4D766A831B79358A00F40018 /* PasswordsHelp.html */; };
 		4D766A8B1B79358A00F40018 /* SettingsHelp.html in Resources */ = {isa = PBXBuildFile; fileRef = 4D766A851B79358A00F40018 /* SettingsHelp.html */; };
@@ -72,7 +71,6 @@
 		4D6657E41B76D5F70035E817 /* AppViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppViewController.swift; sourceTree = "<group>"; };
 		4D6657E61B7908A90035E817 /* PasswordsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordsViewController.swift; sourceTree = "<group>"; };
 		4D766A7E1B79358A00F40018 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = UberGenPass/Base.lproj/About.html; sourceTree = SOURCE_ROOT; };
-		4D766A801B79358A00F40018 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = UberGenPass/Base.lproj/Licenses.html; sourceTree = SOURCE_ROOT; };
 		4D766A821B79358A00F40018 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = UberGenPass/Base.lproj/MainHelp.html; sourceTree = SOURCE_ROOT; };
 		4D766A841B79358A00F40018 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = UberGenPass/Base.lproj/PasswordsHelp.html; sourceTree = SOURCE_ROOT; };
 		4D766A861B79358A00F40018 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = UberGenPass/Base.lproj/SettingsHelp.html; sourceTree = SOURCE_ROOT; };
@@ -145,7 +143,6 @@
 				4D56C0901B74568500E76B4E /* help.css */,
 				4D8DE7691B72D20300DFFA18 /* Info.plist */,
 				4D8DE7661B72D20300DFFA18 /* LaunchScreen.storyboard */,
-				4D766A7F1B79358A00F40018 /* Licenses.html */,
 				4DE172CF1B7ADEA800162A42 /* Localizable.strings */,
 				4D766A811B79358A00F40018 /* MainHelp.html */,
 				4D766A831B79358A00F40018 /* PasswordsHelp.html */,
@@ -385,7 +382,6 @@
 				4D8DE7651B72D20300DFFA18 /* Assets.xcassets in Resources */,
 				4D8DE7631B72D20300DFFA18 /* Main.storyboard in Resources */,
 				4D56C09C1B74568500E76B4E /* TopLevelDomains.json in Resources */,
-				4D766A881B79358A00F40018 /* Licenses.html in Resources */,
 				4D766A891B79358A00F40018 /* MainHelp.html in Resources */,
 				4DE172D11B7ADEA800162A42 /* Localizable.strings in Resources */,
 				4D56C09E1B74568500E76B4E /* YellowStatus.png in Resources */,
@@ -513,14 +509,6 @@
 				4D766A7E1B79358A00F40018 /* Base */,
 			);
 			name = About.html;
-			sourceTree = "<group>";
-		};
-		4D766A7F1B79358A00F40018 /* Licenses.html */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4D766A801B79358A00F40018 /* Base */,
-			);
-			name = Licenses.html;
 			sourceTree = "<group>";
 		};
 		4D766A811B79358A00F40018 /* MainHelp.html */ = {
