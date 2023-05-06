@@ -343,7 +343,7 @@
                         <outlet property="safariButton" destination="TT1-7X-NsD" id="rTa-T3-NDe"/>
                         <outlet property="siteTextField" destination="FBz-9R-IZS" id="xap-K1-8y6"/>
                         <segue destination="6" kind="presentation" identifier="Settings" id="F6i-BF-7ir"/>
-                        <segue destination="2H2-gP-edu" kind="presentation" identifier="About" modalTransitionStyle="crossDissolve" id="kdK-xw-ZbZ"/>
+                        <segue destination="2H2-gP-edu" kind="presentation" identifier="About" id="kdK-xw-ZbZ"/>
                         <segue destination="NnY-82-Unv" kind="presentation" identifier="Help" id="Rg6-Hg-fxo"/>
                     </connections>
                 </viewController>
@@ -960,7 +960,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="FHk-Y3-dxx"/>
+        <segue reference="PgO-mm-w04"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="BackButton.png" width="15" height="18"/>
