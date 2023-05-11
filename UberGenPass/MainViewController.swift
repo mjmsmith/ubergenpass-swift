@@ -539,7 +539,11 @@ extension MainViewController: SettingsViewControllerDelegate {
     }
     
     self.removeBlurView()
-    self.dismiss(animated: true, completion:nil)
+    self.dismiss(animated: true) {
+      if self.siteTextField.text ?? "" == "" {
+        self.siteTextField.becomeFirstResponder()
+      }
+    }
   }
 
   func settingsViewControllerDidCancel(settingsViewController: SettingsViewController) {
