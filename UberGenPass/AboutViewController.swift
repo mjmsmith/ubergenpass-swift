@@ -16,8 +16,9 @@ class AboutViewController: AppViewController {
     super.viewDidLoad()
     
     let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") ?? ""
-    
-    self.nameLabel.text = "UberGenPass \(version)"
+    let build = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") ?? ""
+
+    self.nameLabel.text = "UberGenPass \(version) (\(build))"
 
     self.rateButton.layer.cornerRadius = 8.0
 
